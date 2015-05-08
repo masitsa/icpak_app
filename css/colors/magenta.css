@@ -9,39 +9,40 @@ Template:	Mobix - Mobile Web APP Template
 /* MAIN COLOR */
 /*===============================================*/	
 a, blockquote span {
-color: #833545;
+color: #C29D07;
 }
 a.button_full, a.button_small, .call_button a{
-background-color:#833545; 
+background-color:#C29D07; 
 }
 .button {
-border: 1px solid #833545;
-color: #833545;
+border: 1px solid #C29D07;
+color: #C29D07;
 }
 .button.active {
-background: #833545;
+background: #C29D07;
 }
 #pages_maincontent h3{
-color:#833545;
+color:#C29D07;
 }
 .photo-categories a.active{
-background-color:#833545;
+background-color:#C29D07;
 }
 .post_date{
-color:#833545;
+color:#C29D07;
 }
 .list-block .swipeout-actions-left a,
 .list-block .swipeout-actions-right a {
-background: #833545;
+background: #C29D07;
 }
 .contactform input.form_submit, .loginform input.form_submit, .commentform input.form_submit{ 
-background-color:#833545;
+background-color:#C29D07;
 }
 /*===============================================*/
 /* HOME BG AND PAGES HEADER BG */
 /*===============================================*/	
 .homepage{
-background: url(../../images/colors/magenta/bg.jpg) no-repeat center center;
+/*background: url(../../images/colors/magenta/bg.jpg) no-repeat center center;*/
+background-color: black;
 background-attachment:fixed;
 -webkit-background-size: 100%; 
 -moz-background-size: 100%;
@@ -53,23 +54,26 @@ background-size: 100%;
 background-size: cover;
 }
 .navbarpages{
-background:url(../../images/colors/magenta/header.jpg) no-repeat center center;
+/*background:url(../../images/colors/magenta/header.jpg) no-repeat center center;*/
+  background-color: black;
 }
 /*===============================================*/
 /* MAIN NAV LINKS */
 /*===============================================*/	
 .main-nav ul li{
-background: #562037;
+background: #C29D07;
 border-bottom:1px #692c46 solid;
 }
 .main-nav ul li a{
-color:#c6a0b1;
+/*color:#c6a0b1;*/
+color: #fff;
 }
 /*===============================================*/
 /* POPUPS AND TOOLBAR */
 /*===============================================*/	
 .popup{
-background: #49182d;
+/*background: #49182d;*/
+background-color: black;
 }
 .popup-login, .popup-signup, .popup-forgot{
 background-color:#263239;
@@ -81,17 +85,17 @@ background-color:#263239;
 /* LEFT AND RIGHT SLIDE PANEL */
 /*===============================================*/	
 .panel {
-background:#873a48;
+background:#C29D07;
 }
 .user-nav ul li, ul.popular_posts li{
 border-bottom:1px #9b4d5b solid;
 }
 /* MENU OPENER ICON */
 ul.toolbar_icons li.menuicon{
-background-color:#873a48;
+background-color:#C29D07;
 }
 
 /* PANEL CLOSE BUTTON */
 .close_popup_button a{
-background-color:#873a48;
+background-color:#C29D07;
 }
