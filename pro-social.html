@@ -21,34 +21,36 @@
                     <div class="tabs">
                           <div id="tab1" class="tab active">
                                 <h4>Technical Query</h4>
-					            <div class="contactform">
-						            <form class="cmxform" id="ContactForm" method="post" action="">
-							            <label>Subject:</label>
-							            <input type="text" name="ContactName" id="ContactName" value="" class="form_input required" />
-							            <label>Body:</label>
-							            <textarea name="ContactComment" id="ContactComment" class="form_textarea textarea required" rows="" cols=""></textarea>
-							            <input type="submit" name="submit" class="form_submit" id="submit" value="Send" />
-							            <input class="" type="hidden" name="to"  value="youremail@yourwebsite.com" />
-							            <input class="" type="hidden" name="subject" value="Contacf form message" />
-							            <label id="loader" style="display:none;"><img src="images/loader.gif" alt="Loading..." id="LoadingGraphic" /></label>
-						            </form>
-					            </div>
+                                <div id="technical_response"></div>
+          					            <div class="contactform">
+          						            <form class="cmxform" id="technical_query" method="post" action="">
+          							            <label>Subject:</label>
+          							            <input type="text" name="query_subject" id="query_subject" value="" class="form_input required" />
+          							            <label>Body:</label>
+          							            <textarea name="query_text" id="query_text" class="form_textarea textarea required" rows="" cols=""></textarea>
+          							            <input type="submit" name="submit" class="form_submit" id="submit" value="Send" />
+          							            <input class="" type="hidden" name="member_email"  value="marttkip@gmail.com" />
+          							            <input class="" type="hidden" name="member_id" value="1" />
+          							            <label id="loader" style="display:none;"><img src="images/loader.gif" alt="Loading..." id="LoadingGraphic" /></label>
+          						            </form>
+          					            </div>
                           </div>
     
                           <div id="tab2" class="tab">
                                 <h4>Standards Query</h4>
-					            <div class="contactform">
-						            <form class="cmxform" id="ContactForm" method="post" action="">
-							            <label>Subject:</label>
-							            <input type="text" name="ContactName" id="ContactName" value="" class="form_input required" />
-							            <label>Body:</label>
-							            <textarea name="ContactComment" id="ContactComment" class="form_textarea textarea required" rows="" cols=""></textarea>
-							            <input type="submit" name="submit" class="form_submit" id="submit" value="Send" />
-							            <input class="" type="hidden" name="to"  value="youremail@yourwebsite.com" />
-							            <input class="" type="hidden" name="subject" value="Contacf form message" />
-							            <label id="loader" style="display:none;"><img src="images/loader.gif" alt="Loading..." id="LoadingGraphic" /></label>
-						            </form>
-					            </div>
+                                <div id="standards_response"></div>
+          					            <div class="contactform">
+          						            <form class="cmxform" id="standards_query_form" method="post" action="">
+          							            <label>Subject:</label>
+          							            <input type="text" name="standard_query_subject" id="standard_query_subject" value="" class="form_input required" />
+          							            <label>Body:</label>
+          							            <textarea name="standards_query_text" id="standards_query_text" class="form_textarea textarea required" rows="" cols=""></textarea>
+          							            <input type="submit" name="submit" class="form_submit" id="submit" value="Send" />
+          							            <input class="" type="hidden" name="member_email"  value="marttkip@gmail.com" />
+                                    <input class="" type="hidden" name="member_id" value="1" />
+                                    <label id="loader" style="display:none;"><img src="images/loader.gif" alt="Loading..." id="LoadingGraphic" /></label>
+          						            </form>
+          					            </div>
                           </div> 
                     </div>
               </div>

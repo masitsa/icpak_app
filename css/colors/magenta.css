@@ -34,7 +34,7 @@ color:#C29D07;
 .list-block .swipeout-actions-right a {
 background: #C29D07;
 }
-.contactform input.form_submit, .loginform input.form_submit, .commentform input.form_submit{ 
+.contactform input.form_submit, .loginform input.form_submit, .commentform input.form_submit, .contactform a.form_submit{ 
 background-color:#C29D07;
 }
 /*===============================================*/

@@ -41,7 +41,7 @@ var EmployeeService = function() {
 //log them in automatically
 $(document).ready(function(){
 	//automatic_login();
-	get_event_items();
+	 get_event_items();
 });
 
 function get_event_items()

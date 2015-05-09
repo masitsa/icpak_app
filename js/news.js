@@ -14,7 +14,8 @@ function is_connected()
 	});
 }
 
-var EmployeeService = function() {
+
+var EmployeeNewsService = function() {
 
     var url;
 
@@ -29,7 +30,7 @@ var EmployeeService = function() {
         return $.ajax({url: url + "/" + id});
     }
 
-    this.findByName = function() {
+    this.getallLatesNews = function() {
 		var request = url + "news/get_icpak_news" ;
         return $.ajax({url: request});
     }
@@ -42,24 +43,25 @@ var EmployeeService = function() {
 $(document).ready(function(){
 	//automatic_login();
 	get_news_items();
+	// get_event_items();
 });
 
 function get_news_items()
 {
-	var service = new EmployeeService();
+	var service = new EmployeeNewsService();
 	service.initialize().done(function () {
 		console.log("Service initialized");
 	});
 	
 	//get client's credentials
 	
-	service.findByName().done(function (employees) {
+	service.getallLatesNews().done(function (employees) {
 		var data = jQuery.parseJSON(employees);
 		
 		if(data.message == "success")
 		{
 			// $( "#news-of-icpak" ).addClass( "display_block" );
-			$( "#news-of-icpak" ).html( data.result );
+			$( "#icpak_news" ).html( data.result );
 			
 		}
 		
