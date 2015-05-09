@@ -1,1 +1,1 @@
-var base_url = 'http://mobile.nairobisingles.com/mobile/';
+var base_url = 'http://sixthdimensions.com/icpak/mobile/';
