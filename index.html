@@ -94,7 +94,7 @@
         <div class="toolbar">
               <div class="toolbar-inner">
               <ul class="toolbar_icons">
-              <li><a href="#" data-popup=".popup-login" class="open-popup" data-panel="left" class="open-panel"><img src="images/icons/white/lock.png" alt="" title="" /></a></li>
+              <li id="login_icon"><a href="#" data-popup=".popup-login" class="open-popup" data-panel="left" class="open-panel"><img src="images/icons/white/lock.png" alt="" title="" /></a></li>
               <!-- <li><a href="photos.html"><img src="images/icons/white/photos.png" alt="" title="" /></a></li> -->
               <li><a href="blog.html"><img src="images/icons/white/blog.png" alt="" title="" /></a></li>
               <li class="menuicon"><a href="#" data-popup=".popup-menu" class="open-popup"><img src="images/icons/white/menu.png" alt="" title="" /></a></li>
@@ -114,14 +114,14 @@
                   <li><a href="index.html" class="close-popup"><img src="images/icons/white/home.png" alt="" title="" /><span>Home</span></a></li>                  
                   <li><a href="blog.html" class="close-popup"><img src="images/icons/white/blog.png" alt="" title="" /><span>News</span></a></li>
                   <li><a href="events.html" class="close-popup"><img src="images/icons/white/toogle.png" alt="" title="" /><span>Events</span></a></li>
-                  <li><a href="pro-social.html" class="close-popup"><img src="images/icons/white/docs.png" alt="" title="" /><span>Pro social</span></a></li>
+                  <li id="pro_social" class="display_none"><a href="pro-social.html" class="close-popup"><img src="images/icons/white/docs.png" alt="" title="" /><span>Pro social</span></a></li>
 
-                  <li><a href="videos.html" class="close-popup"><img src="images/icons/white/video.png" alt="" title="" /><span>CPD LIVE</span></a></li>
+                  <li id="cpd_live" class="display_none"><a href="videos.html" class="close-popup"><img src="images/icons/white/video.png" alt="" title="" /><span>CPD LIVE</span></a></li>
+                  <li id="profile" class="display_none"><a href="my-profile.html" class="close-popup"><img src="images/icons/white/user.png" alt="" title="" /><span>Profile</span></a></li>
                   <!-- <li><a href="features.html" class="close-popup"><img src="images/icons/white/settings.png" alt="" title="" /><span>Features</span></a></li> -->
                   <!-- <li><a href="photos.html" class="close-popup"><img src="images/icons/white/photos.png" alt="" title="" /><span>Gallery</span></a></li> -->
                   
                   <li><a href="#" data-popup=".popup-social" class="open-popup"><img src="images/icons/white/heart.png" alt="" title="" /><span>Social</span></a></li>
-                  <li><a href="my-profile.html" class="close-popup"><img src="images/icons/white/user.png" alt="" title="" /><span>Profile</span></a></li>
                   <!-- <li><a href="#" data-popup=".popup-login" class="open-popup"><img src="images/icons/white/lock.png" alt="" title="" /><span>Login</span></a></li> -->
                   <li><a href="tel:+254727 531006" class="close-popup external"><img src="images/icons/white/phone.png" alt="" title="" /><span>Call Now</span></a></li>
                   <li><a href="contact.html" class="close-popup"><img src="images/icons/white/contact.png" alt="" title="" /><span>Contact</span></a></li>
@@ -160,7 +160,7 @@
       <div class="form_logo"><img src="images/logo.png" alt="" title="" /></div>
             <div class="loginform">
             <form id="register_member" method="post">
-            <input type="text" name="first_naame" value="" class="form_input required" placeholder="First name" />
+            <input type="text" name="first_name" value="" class="form_input required" placeholder="First name" />
             <input type="text" name="last_name" value="" class="form_input required" placeholder="Last name" />
             <select class="form_input required" name="gender_id">
             	<option value="">--Gender--</option>
@@ -169,9 +169,8 @@
             </select>
             <input type="email" name="email" value="" class="form_input required" placeholder="Email" />
             <input type="text" name="phone" value="" class="form_input required" placeholder="Phone" />
-            <input type="password" name="Password" value="" class="form_input required" placeholder="Password" />
+            <input type="password" name="password" value="" class="form_input required" placeholder="Password" />
             <input type="text" name="company" value="" class="form_input required" placeholder="Company" />
-            <input type="text" name="Email" value="" class="form_input required" placeholder="email" />
             <input type="submit" name="submit" class="form_submit" id="submit" value="SIGN UP" />
             </form>
             <!--<div class="signup_social">
