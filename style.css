@@ -1558,3 +1558,47 @@ line-height:28px;
 
 .display_none{display: none;}
 .display_block{display: block;}
+
+/*===============================================*/
+/* 15. ecconnect news */
+/*===============================================*/ 
+ul.posts-ecconect{
+padding:0px;
+margin:0px;
+list-style:none;
+width:100%;
+}
+ul.posts-ecconect li{
+padding:20px 0;
+margin:0px;
+float:left;
+clear:both;
+list-style:none;
+width:100%;
+border-bottom:3px #ececec solid;
+}
+
+
+/*===============================================*/
+/* 16. Videos */
+/*===============================================*/ 
+ul.posts-events{
+padding:0px;
+margin:0px;
+list-style:none;
+width:100%;
+}
+ul.posts-events li{
+padding:20px 0;
+margin:0px;
+float:left;
+clear:both;
+list-style:none;
+width:100%;
+border-bottom:3px #ececec solid;
+}
+
+
+/*data for the a */
+
+>>>>>>> 29fcbbeda32484171514436dcd392b80fabf1fe9
