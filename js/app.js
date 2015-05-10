@@ -42,6 +42,7 @@ $(document).ready(function(){
 
 function get_profile_details()
 {
+	$( "#loader-wrapper" ).removeClass( "display_none" );
 	var service = new Login_service();
 	service.initialize().done(function () {
 		console.log("Service initialized");
@@ -55,7 +56,7 @@ function get_profile_details()
 		{
 			// $( "#news-of-icpak" ).addClass( "display_block" );
 			$( "#my_profile" ).html( data.result );
-			
+			$( "#loader-wrapper" ).addClass( "display_none" );
 		}
 		
 		else
@@ -149,6 +150,11 @@ $(document).on("submit","form#register_member",function(e)
 	return false;
 });
 
+function HideModalPopup() 
+{
+ $("#ModalBehaviour").hide(); 
+}
+
 //Login member
 $(document).on("submit","form#login_member",function(e)
 {
@@ -179,7 +185,10 @@ $(document).on("submit","form#login_member",function(e)
 				$( ".main-nav ul li#pro_social" ).css( "display", 'inline-block' );
 				$( ".main-nav ul li#profile" ).css( "display", 'inline-block' );
 				$( ".main-nav ul li#cpd_live" ).css( "display", 'inline-block' );
-				$( "#login_icon" ).html( '<a href="my-profile.html" class="close-popup"><img src="images/icons/white/user.png" alt="" title="" /><span>Profile</span></a>' );
+
+				HideModalPopup();
+				
+				$( "#login_icon" ).html( '<a href="my-profile.html" onClick="get_profile_details()" class="close-popup"><img src="images/icons/white/user.png" alt="" title="" /><span>Profile</span></a>' );
 			}
 			else
 			{

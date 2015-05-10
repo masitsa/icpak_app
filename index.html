@@ -96,7 +96,7 @@
               <ul class="toolbar_icons">
               <li id="login_icon"><a href="#" data-popup=".popup-login" class="open-popup" data-panel="left" class="open-panel"><img src="images/icons/white/lock.png" alt="" title="" /></a></li>
               <!-- <li><a href="photos.html"><img src="images/icons/white/photos.png" alt="" title="" /></a></li> -->
-              <li><a href="blog.html"><img src="images/icons/white/blog.png" alt="" title="" /></a></li>
+              <li><a href="blog.html" onClick="get_news_items()"><img src="images/icons/white/blog.png" alt="" title="" /></a></li>
               <li class="menuicon"><a href="#" data-popup=".popup-menu" class="open-popup"><img src="images/icons/white/menu.png" alt="" title="" /></a></li>
               <li><a href="tel:+254727 531006" class="close-popup external"><img src="images/icons/white/phone.png" alt="" title="" /></a></li>
               <li><a href="contact.html"><img src="images/icons/white/contact.png" alt="" title="" /></a></li>
@@ -132,7 +132,7 @@
     </div> 
     
     <!-- Login Popup -->
-    <div class="popup popup-login">
+    <div class="popup popup-login" id="ModalBehaviour">
     <div class="content-block-login">
       <h4>LOGIN</h4>
       <div id="login_response"></div>

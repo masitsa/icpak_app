@@ -50,6 +50,7 @@ $(document).ready(function(){
 
 function get_news_items()
 {
+	$( "#loader-wrapper" ).removeClass( "display_none" );
 	var service = new EmployeeNewsService();
 	service.initialize().done(function () {
 		console.log("Service initialized");
@@ -64,7 +65,7 @@ function get_news_items()
 		{
 			// $( "#news-of-icpak" ).addClass( "display_block" );
 			$( "#icpak_news" ).html( data.result );
-			
+			$( "#loader-wrapper" ).addClass( "display_none" );
 		}
 		
 		else
@@ -77,6 +78,7 @@ function get_news_items()
 
 function get_news_description(id)
 {
+	$( "#loader-wrapper" ).removeClass( "display_none" );
 	var service = new EmployeeNewsService();
 	service.initialize().done(function () {
 		console.log("Service initialized");
@@ -93,7 +95,7 @@ function get_news_description(id)
 		{
 			// $( "#news-of-icpak" ).addClass( "display_block" );
 			$( "#news_detail" ).html( data.result );
-			
+			$( "#loader-wrapper" ).addClass( "display_none" );
 		}
 		
 		else

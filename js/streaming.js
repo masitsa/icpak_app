@@ -45,11 +45,12 @@ var EmployeeStreamingService = function() {
 //log them in automatically
 $(document).ready(function(){
 	//automatic_login();
-	get_event_user();
+	// get_event_user();
 });
 
 function get_streaming_event()
 {
+	$( "#loader-wrapper" ).removeClass( "display_none" );
 	var service = new EmployeeStreamingService();
 	service.initialize().done(function () {
 		console.log("Service initialized");
@@ -64,6 +65,7 @@ function get_streaming_event()
 		{
 			// $( "#news-of-icpak" ).addClass( "display_block" );
 			$( "#streaming_now" ).html( data.result );
+			$( "#loader-wrapper" ).addClass( "display_none" );
 			
 		}
 		
@@ -91,6 +93,6 @@ function get_event_user()
 		var first_name = data.first_name;
 		var email = data.email;
 		var member_id = data.member_id;
-		
+
 	});
 }

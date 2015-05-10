@@ -40,7 +40,7 @@ var EmployeeService = function() {
     }
     this.getEventsDetail = function(id) {
 		var request = url + "events/get_news_detail" ;
-        return $.ajax({url: url + "news/get_event_detail/" + id});
+        return $.ajax({url: url + "events/get_event_detail/" + id});
     }
 
     
@@ -53,6 +53,7 @@ $(document).ready(function(){
 
 function get_event_items()
 {
+	$( "#loader-wrapper" ).removeClass( "display_none" );
 	var service = new EmployeeService();
 	service.initialize().done(function () {
 		console.log("Service initialized");
@@ -67,7 +68,7 @@ function get_event_items()
 		{
 			// $( "#news-of-icpak" ).addClass( "display_block" );
 			$( "#events_list" ).html( data.result );
-			
+			$( "#loader-wrapper" ).addClass( "display_none" );
 		}
 		
 		else
@@ -99,6 +100,7 @@ function get_event_user()
 
 function get_events_description(id)
 {
+	$( "#loader-wrapper" ).removeClass( "display_none" );
 	var service = new EmployeeService();
 	service.initialize().done(function () {
 		console.log("Service initialized");
@@ -115,7 +117,7 @@ function get_events_description(id)
 		{
 			// $( "#news-of-icpak" ).addClass( "display_block" );
 			$( "#events_detail" ).html( data.result );
-			
+			$( "#loader-wrapper" ).addClass( "display_none" );
 		}
 		
 		else
