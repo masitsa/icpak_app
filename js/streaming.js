@@ -14,7 +14,7 @@ function is_connected()
 	});
 }
 
-var EmployeeService = function() {
+var EmployeeStreamingService = function() {
 
     var url;
 
@@ -46,7 +46,7 @@ $(document).ready(function(){
 
 function get_streaming_event()
 {
-	var service = new EmployeeService();
+	var service = new EmployeeStreamingService();
 	service.initialize().done(function () {
 		console.log("Service initialized");
 	});
