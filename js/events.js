@@ -38,6 +38,12 @@ var EmployeeService = function() {
 		var request = url + "login/get_logged_in_member" ;
         return $.ajax({url: request});
     }
+    this.getEventsDetail = function(id) {
+		var request = url + "events/get_news_detail" ;
+        return $.ajax({url: url + "news/get_event_detail/" + id});
+    }
+
+    
 }
 
 //on page load if the user has logged in previously,
@@ -87,5 +93,34 @@ function get_event_user()
 		var first_name = data.first_name;
 		var email = data.email;
 		var member_id = data.member_id;
+	});
+}
+
+
+function get_events_description(id)
+{
+	var service = new EmployeeService();
+	service.initialize().done(function () {
+		console.log("Service initialized");
+	});
+	
+	//get client's credentials
+	// var id = getURLParameter('id');
+	// alert(id);
+	
+	service.getEventsDetail(id).done(function (employees) {
+		var data = jQuery.parseJSON(employees);
+		
+		if(data.message == "success")
+		{
+			// $( "#news-of-icpak" ).addClass( "display_block" );
+			$( "#events_detail" ).html( data.result );
+			
+		}
+		
+		else
+		{
+
+		}
 	});
 }

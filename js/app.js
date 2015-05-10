@@ -23,6 +23,10 @@ var Login_service = function() {
 		var request = url + "login/login_member/" + email + "/" + password;
         return $.ajax({url: request});
     }
+     this.getProfileDetails = function() {
+		var request = url + "login/get_client_profile";
+        return $.ajax({url: request});
+    }
 }
 
 //on page load if the user has logged in previously,
@@ -35,6 +39,31 @@ $(document).ready(function(){
 	
 	automatic_login();
 });
+
+function get_profile_details()
+{
+	var service = new Login_service();
+	service.initialize().done(function () {
+		console.log("Service initialized");
+	});
+	
+	
+	service.getProfileDetails().done(function (employees) {
+		var data = jQuery.parseJSON(employees);
+		
+		if(data.message == "success")
+		{
+			// $( "#news-of-icpak" ).addClass( "display_block" );
+			$( "#my_profile" ).html( data.result );
+			
+		}
+		
+		else
+		{
+
+		}
+	});
+}
 
 //automatic login
 function automatic_login()
