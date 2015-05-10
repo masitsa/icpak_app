@@ -27,6 +27,11 @@ var Login_service = function() {
 		var request = url + "login/get_client_profile";
         return $.ajax({url: request});
     }
+
+    this.get_event_user = function() {
+		var request = url + "login/get_logged_in_member" ;
+        return $.ajax({url: request});
+    }
 }
 
 //on page load if the user has logged in previously,
@@ -186,9 +191,13 @@ $(document).on("submit","form#login_member",function(e)
 				$( ".main-nav ul li#profile" ).css( "display", 'inline-block' );
 				$( ".main-nav ul li#cpd_live" ).css( "display", 'inline-block' );
 
+
 				HideModalPopup();
 				
 				$( "#login_icon" ).html( '<a href="my-profile.html" onClick="get_profile_details()" class="close-popup"><img src="images/icons/white/user.png" alt="" title="" /><span>Profile</span></a>' );
+
+				$( "#login_icon" ).html( '<a href="my-profile.html" class="close-popup"><img src="images/icons/white/user.png" alt="" title="" /><span>Profile</span></a>' );
+				get_event_user();
 			}
 			else
 			{
@@ -206,3 +215,51 @@ $(document).on("submit","form#login_member",function(e)
 	}
 	return false;
 });
+
+//get a logged in user's details
+function get_event_user()
+{
+	var service = new Login_service();
+	service.initialize().done(function () {
+		console.log("Service initialized");
+	});
+	
+	//get client's credentials
+	service.get_event_user().done(function (employees) {
+		var data = jQuery.parseJSON(employees);
+		
+		var first_name = data.first_name;
+		var email = data.email;
+		var member_id = data.member_id;
+		
+		$( "#questionForm_email" ).val( email );
+		$( "#questionForm_user" ).val( first_name );
+		$( "#questionForm_id" ).val( member_id );
+		
+		$( "#app_user" ).html( first_name );
+	});
+}
+
+//get a logged in user's details
+function get_social_user()
+{
+	var service = new Login_service();
+	service.initialize().done(function () {
+		console.log("Service initialized");
+	});
+	
+	//get client's credentials
+	service.get_event_user().done(function (employees) {
+		var data = jQuery.parseJSON(employees);
+		
+		var email = data.email;
+		var member_id = data.member_id;
+		
+		$( "#social_member_email1" ).val( email );
+		$( "#social_member_id1" ).val( member_id );
+		
+		$( "#social_member_email2" ).val( email );
+		$( "#social_member_id2" ).val( member_id );
+		
+	});
+}

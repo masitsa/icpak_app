@@ -108,7 +108,6 @@ function get_news_description(id)
 //pass the variable in the link as follows e.g. news.html?id=1
 //on the news.html page get the parameter by javascript as follows var id = getURLParameter('id');
 //the function to get the url parameter is defined below
-
 function getURLParameter(name) {
   return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null
 }
