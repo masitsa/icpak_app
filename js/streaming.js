@@ -33,6 +33,10 @@ var EmployeeStreamingService = function() {
 		var request = url + "streaming/get_streaming_event" ;
         return $.ajax({url: request});
     }
+    this.get_event_user = function() {
+		var request = url + "login/get_logged_in_member" ;
+        return $.ajax({url: request});
+    }
 
 
 }
@@ -41,7 +45,7 @@ var EmployeeStreamingService = function() {
 //log them in automatically
 $(document).ready(function(){
 	//automatic_login();
-	get_streaming_event();
+	get_event_user();
 });
 
 function get_streaming_event()
@@ -67,5 +71,26 @@ function get_streaming_event()
 		{
 
 		}
+	});
+}
+
+
+//get a logged in user's details
+function get_event_user()
+{
+	var service = new EmployeeStreamingService();
+	service.initialize().done(function () {
+		console.log("Service initialized");
+	});
+	
+	//get client's credentials
+	
+	service.get_event_user().done(function (employees) {
+		var data = jQuery.parseJSON(employees);
+		
+		var first_name = data.first_name;
+		var email = data.email;
+		var member_id = data.member_id;
+		
 	});
 }

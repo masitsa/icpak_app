@@ -31,13 +31,18 @@ var Query_Service = function() {
 		var request = url + "queries/contact_us";
         return $.ajax({url: request, data: form_data, type: 'POST', processData: false,contentType: false});
     }
+
+    this.get_event_user = function() {
+		var request = url + "login/get_logged_in_member" ;
+        return $.ajax({url: request});
+    }
  
 }
 //on page load if the user has logged in previously,
 //log them in automatically
+
 $(document).ready(function(){
 	//automatic_login();
-	
 	$( ".main-nav ul li#pro_social" ).css( "inline-block", 'none' );
 	$( ".main-nav ul li#profile" ).css( "inline-block", 'none' );
 	$( ".main-nav ul li#cpd_live" ).css( "inline-block", 'none' );
@@ -266,3 +271,26 @@ $(document).on("submit","form#ContactFormHe",function(e)
 	}
 	return false;
 });
+
+
+//get a logged in user's details
+function get_event_user()
+{
+	var service = new Query_Service();
+	service.initialize().done(function () {
+		console.log("Service initialized");
+	});
+	
+	//get client's credentials
+	
+	service.get_event_user().done(function (employees) {
+		var data = jQuery.parseJSON(employees);
+		
+		var first_name = data.first_name;
+		var email = data.email;
+		var member_id = data.member_id;
+		$("#member_id").val(member_id);
+		$("#member_email").val(email);
+		$("#first_name").val(first_name);
+	});
+}

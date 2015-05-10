@@ -34,6 +34,10 @@ var EmployeeNewsService = function() {
 		var request = url + "news/get_icpak_news" ;
         return $.ajax({url: request});
     }
+    this.getNewsDetail = function(id) {
+		var request = url + "news/get_news_detail" ;
+        return $.ajax({url: url + "news/get_news_detail/" + id});
+    }
 
 
 }
@@ -70,6 +74,35 @@ function get_news_items()
 	});
 }
 
+
+function get_news_description(id)
+{
+	var service = new EmployeeNewsService();
+	service.initialize().done(function () {
+		console.log("Service initialized");
+	});
+	
+	//get client's credentials
+	// var id = getURLParameter('id');
+	// alert(id);
+	
+	service.getNewsDetail(id).done(function (employees) {
+		var data = jQuery.parseJSON(employees);
+		
+		if(data.message == "success")
+		{
+			// $( "#news-of-icpak" ).addClass( "display_block" );
+			$( "#news_detail" ).html( data.result );
+			
+		}
+		
+		else
+		{
+
+		}
+	});
+}
+
 //pass the variable in the link as follows e.g. news.html?id=1
 //on the news.html page get the parameter by javascript as follows var id = getURLParameter('id');
 //the function to get the url parameter is defined below
@@ -77,3 +110,5 @@ function get_news_items()
 function getURLParameter(name) {
   return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null
 }
+
+
