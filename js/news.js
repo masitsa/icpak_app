@@ -42,8 +42,6 @@ var EmployeeNewsService = function() {
 //log them in automatically
 $(document).ready(function(){
 	//automatic_login();
-	get_news_items();
-	// get_event_items();
 });
 
 function get_news_items()

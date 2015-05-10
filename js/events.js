@@ -34,14 +34,15 @@ var EmployeeService = function() {
         return $.ajax({url: request});
     }
 
-
+    this.get_event_user = function() {
+		var request = url + "login/get_logged_in_member" ;
+        return $.ajax({url: request});
+    }
 }
 
 //on page load if the user has logged in previously,
 //log them in automatically
 $(document).ready(function(){
-	//automatic_login();
-	 get_event_items();
 });
 
 function get_event_items()
@@ -67,5 +68,24 @@ function get_event_items()
 		{
 
 		}
+	});
+}
+
+//get a logged in user's details
+function get_event_user()
+{
+	var service = new EmployeeService();
+	service.initialize().done(function () {
+		console.log("Service initialized");
+	});
+	
+	//get client's credentials
+	
+	service.get_event_user().done(function (employees) {
+		var data = jQuery.parseJSON(employees);
+		
+		var first_name = data.first_name;
+		var email = data.email;
+		var member_id = data.member_id;
 	});
 }
