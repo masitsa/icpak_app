@@ -28,16 +28,19 @@ var Login_service = function() {
 //on page load if the user has logged in previously,
 //log them in automatically
 $(document).ready(function(){
-	//automatic_login();
 	
 	$( ".main-nav ul li#pro_social" ).css( "display", 'none' );
 	$( ".main-nav ul li#profile" ).css( "display", 'none' );
 	$( ".main-nav ul li#cpd_live" ).css( "display", 'none' );
+	
+	automatic_login();
 });
 
 //automatic login
 function automatic_login()
 {
+	$( "#loader-wrapper" ).removeClass( "display_none" );
+	
 	var service = new Login_service();
 	service.initialize().done(function () {
 		console.log("Service initialized");
@@ -47,19 +50,23 @@ function automatic_login()
 	var email = window.localStorage.getItem("member_email");
 	var password = window.localStorage.getItem("member_password");
 	
-	service.findByName(email, password).done(function (employees) {
-		var data = jQuery.parseJSON(employees);
+	service.login_member(email, password).done(function (employees) {
+		var data = jQuery.parseJSON(employees);//alert(email+' '+password);
 		
 		if(data.message == "success")
 		{
-			window.localStorage.setItem("member_username", data.member_username);
-			window.location.href = 'pages/profiles.html';
+			//display login items
+			$( ".main-nav ul li#pro_social" ).css( "display", 'inline-block' );
+			$( ".main-nav ul li#profile" ).css( "display", 'inline-block' );
+			$( ".main-nav ul li#cpd_live" ).css( "display", 'inline-block' );
+			$( "#login_icon" ).html( '<a href="my-profile.html" class="close-popup"><img src="images/icons/white/user.png" alt="" title="" /><span>Profile</span></a>' );
 		}
-		
 		else
 		{
-			$( "#loader-wrapper" ).addClass( "display_none" );
+			$("#response").html('<div class="alert alert-danger center-align">'+data.result+'</div>').fadeIn( "slow");
 		}
+		
+		$( "#loader-wrapper" ).addClass( "display_none" );
 	});
 }
 
