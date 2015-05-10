@@ -45,7 +45,6 @@ var EmployeeStreamingService = function() {
 //log them in automatically
 $(document).ready(function(){
 	//automatic_login();
-	get_event_user();
 });
 
 function get_streaming_event()
@@ -64,7 +63,6 @@ function get_streaming_event()
 		{
 			// $( "#news-of-icpak" ).addClass( "display_block" );
 			$( "#streaming_now" ).html( data.result );
-			
 		}
 		
 		else
@@ -78,6 +76,7 @@ function get_streaming_event()
 //get a logged in user's details
 function get_event_user()
 {
+	alert('here');
 	var service = new EmployeeStreamingService();
 	service.initialize().done(function () {
 		console.log("Service initialized");
@@ -91,6 +90,10 @@ function get_event_user()
 		var first_name = data.first_name;
 		var email = data.email;
 		var member_id = data.member_id;
+		
+		$( "#questionForm_email" ).val( email );
+		$( "#questionForm_user" ).val( first_name );
+		$( "#questionForm_id" ).val( member_id );
 		
 	});
 }
