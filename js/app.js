@@ -230,8 +230,8 @@ function get_event_user()
 	service.get_event_user().done(function (employees) {
 		var data = jQuery.parseJSON(employees);
 		
-		var first_name = data.first_name;
-		var email = data.email;
+		var first_name = data.member_first_name;
+		var email = data.member_email;
 		var member_id = data.member_id;
 		
 		$( "#questionForm_email" ).val( email );
@@ -254,7 +254,7 @@ function get_social_user()
 	service.get_event_user().done(function (employees) {
 		var data = jQuery.parseJSON(employees);
 		
-		var email = data.email;
+		var email = data.member_email;
 		var member_id = data.member_id;
 		
 		$( "#social_member_email1" ).val( email );
