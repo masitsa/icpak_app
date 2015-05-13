@@ -34,10 +34,12 @@ var Login_service = function() {
     }
 }
 
+
 //on page load if the user has logged in previously,
 //log them in automatically
 $(document).ready(function(){
-	
+		
+	$("span[id=user_pass]").val("user");
 	$( ".main-nav ul li#pro_social" ).css( "display", 'none' );
 	$( ".main-nav ul li#profile" ).css( "display", 'none' );
 	$( ".main-nav ul li#cpd_live" ).css( "display", 'none' );
@@ -75,6 +77,7 @@ function get_profile_details()
 function automatic_login()
 {
 	$( "#loader-wrapper" ).removeClass( "display_none" );
+
 	
 	var service = new Login_service();
 	service.initialize().done(function () {

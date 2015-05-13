@@ -96,6 +96,7 @@ function get_news_description(id)
 			// $( "#news-of-icpak" ).addClass( "display_block" );
 			$( "#news_detail" ).html( data.result );
 			$( "#loader-wrapper" ).addClass( "display_none" );
+
 		}
 		
 		else
