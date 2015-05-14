@@ -30,6 +30,7 @@ var Login_service = function() {
 
     this.get_event_user = function() {
 		var request = url + "login/get_logged_in_member" ;
+		// alert(url);
         return $.ajax({url: request});
     }
 }
@@ -43,6 +44,7 @@ $(document).ready(function(){
 	$( ".main-nav ul li#pro_social" ).css( "display", 'none' );
 	$( ".main-nav ul li#profile" ).css( "display", 'none' );
 	$( ".main-nav ul li#cpd_live" ).css( "display", 'none' );
+	$( ".user-nav ul li#my_account" ).css( "display", 'none' );
 	
 	automatic_login();
 });
@@ -97,7 +99,8 @@ function automatic_login()
 			$( ".main-nav ul li#pro_social" ).css( "display", 'inline-block' );
 			$( ".main-nav ul li#profile" ).css( "display", 'inline-block' );
 			$( ".main-nav ul li#cpd_live" ).css( "display", 'inline-block' );
-			$( "#login_icon" ).html( '<a href="my-profile.html" class="close-popup"><img src="images/icons/white/user.png" alt="" title="" /><span>Profile</span></a>' );
+			$( ".user-nav ul li#my_account" ).css( "display", 'inline-block' );
+			$( "#login_icon" ).html( '<a href="my-profile.html" class="close-popup"><img src="images/icons/white/user.png" alt="" title="" onClick="get_profile_details()"/><span>Profile</span></a>' );
 		}
 		else
 		{
@@ -142,7 +145,7 @@ $(document).on("submit","form#register_member",function(e)
 				window.localStorage.setItem("member_first_name", $("input[name=first_name]").val());
 				window.localStorage.setItem("member_last_name", $("input[name=last_name]").val());
 				window.localStorage.setItem("member_company", $("input[name=company]").val());
-				window.localStorage.setItem("gender_id", $("input[name=gender_id]").val());
+				window.localStorage.setItem("member_no", $("input[name=member_no]").val());
 			}
 			alert(data.result);
 			
@@ -228,8 +231,9 @@ function get_event_user()
 	
 	//get client's credentials
 	service.get_event_user().done(function (employees) {
+
+
 		var data = jQuery.parseJSON(employees);
-		
 		var first_name = data.member_first_name;
 		var email = data.member_email;
 		var member_id = data.member_id;

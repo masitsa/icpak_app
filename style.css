@@ -578,7 +578,7 @@ letter-spacing:-0.5px;
 #pages_maincontent h3{
 font-size:16px;
 font-weight:700;
-margin:5px 0 20px 0;
+margin:5px 0 10px 0;
 display:block;
 clear:both;
 }
@@ -1045,6 +1045,7 @@ display:inline-block;
 }
 .entry{
 padding:20px 0 0 0;
+text-align: justify;
 }
 .entry p{
 line-height:22px;
@@ -1492,7 +1493,7 @@ line-height:28px;
 	-khtml-border-radius:50%; /* Linux browsers */
 	border-radius:50%; /* CSS3 */
     border: 3px solid transparent;
-    border-top-color: #3498db;
+    border-top-color: #ececec;
     -webkit-animation: spin 2s linear infinite; /* Chrome, Opera 15+, Safari 5+ */
     animation: spin 2s linear infinite; /* Chrome, Firefox 16+, IE 10+, Opera */
 }
@@ -1509,7 +1510,7 @@ line-height:28px;
 	-khtml-border-radius:50%; /* Linux browsers */
 	border-radius:50%; /* CSS3 */
     border: 3px solid transparent;
-    border-top-color: #e74c3c;
+    border-top-color: #000;
     -webkit-animation: spin 3s linear infinite; /* Chrome, Opera 15+, Safari 5+ */
       animation: spin 3s linear infinite; /* Chrome, Firefox 16+, IE 10+, Opera */
 }
@@ -1526,7 +1527,7 @@ line-height:28px;
 	-khtml-border-radius:50%; /* Linux browsers */
 	border-radius:50%; /* CSS3 */
     border: 3px solid transparent;
-    border-top-color: #f9c922;
+    border-top-color: #C29D07;
     -webkit-animation: spin 1.5s linear infinite; /* Chrome, Opera 15+, Safari 5+ */
       animation: spin 1.5s linear infinite; /* Chrome, Firefox 16+, IE 10+, Opera */
 }
@@ -1613,4 +1614,16 @@ color:#FFFFFF;
 -webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;
 border: none;
 cursor:pointer;
+}
+
+.sub-total 
+{
+  border-bottom: 3px solid #ececec;
+  border-top: 3px solid #ececec;
+  clear: both;
+  float: left;
+  list-style: outside none none;
+  margin: 0;
+  padding: 0px 0;
+  width: 100%; 
 }

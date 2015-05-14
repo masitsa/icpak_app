@@ -30,7 +30,7 @@
                 <div class="user_thumb">
                 <img src="images/profile.jpg" alt="" title="" />
                   <div class="user_details">
-                   <p>Hi, <span id="user_jina"></span></p>
+                   <p>Hi, <span id="app_user"></span></p>
                   </div>  
                   <div class="user_social">
                   <a href="#" data-popup=".popup-social" class="open-popup"><img src="images/icons/white/twitter.png" alt="" title="" /></a>              </div>       
@@ -38,12 +38,13 @@
 
                   <nav class="user-nav">
                     <ul>
-                      <li><a href="features.html" class="close-panel"><img src="images/icons/white/settings.png" alt="" title="" /><span>Settings</span></a></li>
-                      <li><a href="features.html" class="close-panel"><img src="images/icons/white/briefcase.png" alt="" title="" /><span>Account</span></a></li>
-                      <li><a href="features.html" class="close-panel"><img src="images/icons/white/message.png" alt="" title="" /><span>Messages</span><strong class="green">12</strong></a></li>
+                      <li><a href="blog.html" class="close-panel" onClick="get_news_items()"><img src="images/icons/white/blog.png" alt="" title="" /><span>
+                      News</span></a></li>
+                      <li><a href="events.html" class="close-panel" onClick="get_event_items()"><img src="images/icons/white/toogle.png" alt="" title="" /><span>Upcoming Events</span></a></li>
+                      <li><a href="my-profile.html" class="close-panel" id="my_account" class="display_none" onClick="get_profile_details()"><img src="images/icons/white/briefcase.png" alt="" title="" /><span>Account</span></a></li>
+                      <!-- <li><a href="features.html" class="close-panel"><img src="images/icons/white/message.png" alt="" title="" /><span>Messages</span><strong class="green">12</strong></a></li>
                       <li><a href="features.html" class="close-panel"><img src="images/icons/white/download.png" alt="" title="" /><span>Downloads</span><strong class="blue">5</strong></a></li>
-                      <li><a href="index.html" class="close-panel"><img src="images/icons/white/lock.png" alt="" title="" /><span>Logout</span></a></li>
-                      <p class="user_pass"></p>
+                      <li><a href="index.html" class="close-panel"><img src="images/icons/white/lock.png" alt="" title="" /><span>Logout</span></a></li> -->
                     </ul>
                   </nav>
           </div>
@@ -163,16 +164,39 @@
             <div class="loginform">
             <form id="register_member" method="post">
             <input type="text" name="first_name" value="" class="form_input required" placeholder="First name" />
-            <input type="text" name="last_name" value="" class="form_input required" placeholder="Last name" />
-            <select class="form_input required" name="gender_id">
-            	<option value="">--Gender--</option>
-            	<option value="1">Male</option>
-                <option value="2">Femail</option>
-            </select>
+            <input type="text" name="last_name" value="" class="form_input required" placeholder="Last name" />            
             <input type="email" name="email" value="" class="form_input required" placeholder="Email" />
+            <input type="text" name="member_no" value="" class="form_input required" placeholder="Member No." />
             <input type="text" name="phone" value="" class="form_input required" placeholder="Phone" />
             <input type="password" name="password" value="" class="form_input required" placeholder="Password" />
-            <input type="text" name="company" value="" class="form_input required" placeholder="Company" />
+            <input type="text" name="company" value="" class="form_input required" placeholder="Company current company" />
+            <input type="submit" name="submit" class="form_submit" id="submit" value="SIGN UP" />
+            </form>
+            <!--<div class="signup_social">
+                <a href="#" class="signup_facebook">FACEBOOK</a>
+                <a href="#" class="signup_twitter">TWITTER</a>            
+            </div>-->
+            </div>
+      <div class="close_loginpopup_button"><a href="#" class="close-popup"><img src="images/icons/white/menu_close.png" alt="" title="" /></a></div>
+    </div>
+    </div>
+
+
+     <!--Update Register Popup -->
+    <div class="popup popup-update-signup">
+    <div class="content-block-login">
+      <h4>UPDATE Details</h4>
+      <div id="register_response"></div>
+      <div class="form_logo"><img src="images/logo.png" alt="" title="" /></div>
+            <div class="loginform">
+            <form id="register_member" method="post">
+            <input type="text" name="first_name" value="" class="form_input required" placeholder="First name" />
+            <input type="text" name="last_name" value="" class="form_input required" placeholder="Last name" />            
+            <input type="email" name="email" value="" class="form_input required" placeholder="Email" />
+            <input type="text" name="member_no" value="" class="form_input required" placeholder="Member No." />
+            <input type="text" name="phone" value="" class="form_input required" placeholder="Phone" />
+            <input type="password" name="password" value="" class="form_input required" placeholder="Password" />
+            <input type="text" name="company" value="" class="form_input required" placeholder="Company current company" />
             <input type="submit" name="submit" class="form_submit" id="submit" value="SIGN UP" />
             </form>
             <!--<div class="signup_social">
