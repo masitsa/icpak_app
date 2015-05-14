@@ -1,1 +1,1 @@
-var base_url = 'http://sixthdimensions.com/icpak/mobile/';
+var base_url = 'http://icpak.com/icpak/mobile/';
