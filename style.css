@@ -430,7 +430,7 @@ font-weight:300;
   position: absolute;
   left: 0;
   top: 0;
-  height: 125px;
+  height: 140px;
   width: 100%;
   display: block;
   z-index: 15;
@@ -470,6 +470,17 @@ margin:20px 0 0 0;
 }
 ul.toolbar_icons li.menuicon img{
 max-width:60%;
+}
+
+ul.toolbar_icons li span{
+display:block;
+text-align:center;
+padding:0 0 0 0;
+color: #fff;
+}
+ul.toolbar_icons ul li a{
+font-size:12px;
+font-weight:300;
 }
 
 /*===============================================*/
