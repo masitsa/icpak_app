@@ -466,7 +466,7 @@ width:20%; margin:0 1%;
 }
 ul.toolbar_icons li img{
 max-width:65%;
-margin:20px 0 0 0;
+margin:10px 0 0 0;
 }
 ul.toolbar_icons li.menuicon img{
 max-width:60%;
@@ -476,10 +476,11 @@ ul.toolbar_icons li span{
 display:block;
 text-align:center;
 padding:0 0 0 0;
+margin-bottom: 15px;
 color: #fff;
 }
-ul.toolbar_icons ul li a{
-font-size:12px;
+ul.toolbar_icons ul li span a{
+font-size:5px;
 font-weight:300;
 }
 
@@ -1601,6 +1602,26 @@ list-style:none;
 width:100%;
 }
 ul.posts-events li{
+padding:20px 0;
+margin:0px;
+float:left;
+clear:both;
+list-style:none;
+width:100%;
+border-bottom:3px #ececec solid;
+}
+
+
+/*===============================================*/
+/* 16. reources */
+/*===============================================*/ 
+ul.posts-resources{
+padding:0px;
+margin:0px;
+list-style:none;
+width:100%;
+}
+ul.posts-resources li{
 padding:20px 0;
 margin:0px;
 float:left;

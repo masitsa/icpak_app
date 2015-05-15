@@ -101,6 +101,7 @@ function automatic_login()
 			$( ".main-nav ul li#cpd_live" ).css( "display", 'inline-block' );
 			$( ".user-nav ul li#my_account" ).css( "display", 'inline-block' );
 			$( "#login_icon" ).html( '<a href="my-profile.html" class="close-popup"><img src="images/icons/white/user.png" alt="" title="" onClick="get_profile_details()"/><span>Profile</span></a>' );
+			$( "#profile_icon" ).html( '<li><a href="my-profile.html" class="close-popup"><img src="images/icons/white/user.png" alt="" title="" onClick="get_profile_details()"/><span>Profile</span></a></li>' );
 		}
 		else
 		{

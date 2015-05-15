@@ -31,6 +31,16 @@ var Query_Service = function() {
 		var request = url + "queries/contact_us";
         return $.ajax({url: request, data: form_data, type: 'POST', processData: false,contentType: false});
     }
+    
+    this.post_social_forum = function(form_data) {
+		var request = url + "queries/post_social_forum";
+        return $.ajax({url: request, data: form_data, type: 'POST', processData: false,contentType: false});
+    }
+    this.getalllatestsocial = function() {
+		var request = url + "queries/get_latest_social";
+        return $.ajax({url: request});
+    }
+
 
     this.get_event_user = function() {
 		var request = url + "login/get_logged_in_member" ;
@@ -215,6 +225,62 @@ $(document).on("submit","form#questionForm",function(e)
 });
 
 
+
+//social forum query member
+$(document).on("submit","form#social_forum_form",function(e)
+{
+	e.preventDefault();
+	
+	//get form values
+	var form_data = new FormData(this);
+		
+	$("#social_response").html('').fadeIn( "slow");
+	$( "#loader-wrapper" ).removeClass( "display_none" );
+
+	$( ".main-nav ul li#pro_social" ).css( "display", 'inline-block' );
+	$( ".main-nav ul li#profile" ).css( "display", 'inline-block' );
+	$( ".main-nav ul li#cpd_live" ).css( "display", 'inline-block' );
+
+	//check if there is a network connection
+	var connection = true;//is_connected();
+	
+	if(connection === true)
+	{
+		var service = new Query_Service();
+		service.initialize().done(function () {
+			console.log("Service initialized");
+		});
+		
+		
+		service.post_social_forum(form_data).done(function (employees) {
+			var data = jQuery.parseJSON(employees);
+			
+			if(data.message == "success")
+			{
+				//set local variables for future auto login
+
+				$("#social_response").html('<div class="alert alert-success center-align">'+"Your comment has been submited."+'</div>').fadeIn( "slow");
+		
+			}
+			else
+			{
+				$("#social_response").html('<div class="alert alert-danger center-align">'+data.result+'</div>').fadeIn( "slow");
+
+			}
+			
+			$( "#loader-wrapper" ).addClass( "display_none" );
+        });
+	}
+	
+	else
+	{
+		$("#social_response").html('<div class="alert alert-danger center-align">'+"No internet connection - please check your internet connection then try again"+'</div>').fadeIn( "slow");
+		$( "#loader-wrapper" ).addClass( "display_none" );
+	}
+	get_social_forum();
+	return false;
+});
+
 //standards query member
 $(document).on("submit","form#ContactFormHe",function(e)
 {
@@ -292,5 +358,37 @@ function get_event_user()
 		$("#member_id").val(member_id);
 		$("#member_email").val(email);
 		$("#first_name").val(first_name);
+	});
+}
+
+
+
+// social forum 
+
+function get_social_forum()
+{
+	$( "#loader-wrapper" ).removeClass( "display_none" );
+	var service = new Query_Service();
+	service.initialize().done(function () {
+		console.log("Service initialized");
+	});
+	
+	//get client's credentials
+	
+	service.getalllatestsocial().done(function (employees) {
+		var data = jQuery.parseJSON(employees);
+		
+		if(data.message == "success")
+		{
+			// $( "#news-of-icpak" ).addClass( "display_block" );
+			$( "#forum-content" ).html( data.result );
+			$( "#loader-wrapper" ).addClass( "display_none" );
+		}
+		
+		else
+		{
+			$( "#forum-content" ).html(" No one has made a comment yet");
+			$( "#loader-wrapper" ).addClass( "display_none" );
+		}
 	});
 }

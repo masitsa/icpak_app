@@ -41,10 +41,10 @@
                       <li><a href="blog.html" class="close-panel" onClick="get_news_items()"><img src="images/icons/white/blog.png" alt="" title="" /><span>
                       News</span></a></li>
                       <li><a href="events.html" class="close-panel" onClick="get_event_items()"><img src="images/icons/white/toogle.png" alt="" title="" /><span>Upcoming Events</span></a></li>
-                      <li><a href="my-profile.html" class="close-panel" id="my_account" class="display_none" onClick="get_profile_details()"><img src="images/icons/white/briefcase.png" alt="" title="" /><span>Account</span></a></li>
-                      <!-- <li><a href="features.html" class="close-panel"><img src="images/icons/white/message.png" alt="" title="" /><span>Messages</span><strong class="green">12</strong></a></li>
+                      <span id="profile_icon"></span>
+                      <li><a href="features.html" class="close-panel"><img src="images/icons/white/message.png" alt="" title="" /><span>ICPAK</span><strong class="green">12</strong></a></li>
                       <li><a href="features.html" class="close-panel"><img src="images/icons/white/download.png" alt="" title="" /><span>Downloads</span><strong class="blue">5</strong></a></li>
-                      <li><a href="index.html" class="close-panel"><img src="images/icons/white/lock.png" alt="" title="" /><span>Logout</span></a></li> -->
+                      <li><a href="index.html" class="close-panel"><img src="images/icons/white/lock.png" alt="" title="" /><span>Logout</span></a></li>
                     </ul>
                   </nav>
           </div>
@@ -99,9 +99,9 @@
               <li id="login_icon"><a href="#" data-popup=".popup-login" class="open-popup" data-panel="left" class="open-panel"><img src="images/icons/white/lock.png" alt="" title="" /><span>Login</span></a> </li>
               <!-- <li><a href="photos.html"><img src="images/icons/white/photos.png" alt="" title="" /></a></li> -->
               <li><a href="blog.html" onClick="get_news_items()"><img src="images/icons/white/blog.png" alt="" title="" /><span>News</span></a></li>
-              <li class="menuicon"><a href="#" data-popup=".popup-menu" class="open-popup"><img src="images/icons/white/menu.png" alt="" title="" /><span>MENU</span></a></li>
-              <li><a href="tel:+254727 531006" class="close-popup external"><img src="images/icons/white/phone.png" alt="" title="" /><span>Call Us</span></a></li>
-              <li><a href="contact.html"><img src="images/icons/white/contact.png" alt="" title="" /><span>Contact Us</span></a></li>
+              <li class="menuicon"><a href="#" data-popup=".popup-menu" class="open-popup"><img src="images/icons/white/menu.png" alt="" title="" /><span>Menu</span></a></li>
+              <li><a href="tel:+254727 531006" class="close-popup external"><img src="images/icons/white/phone.png" alt="" title="" /><span>Call </span></a></li>
+              <li><a href="contact.html"><img src="images/icons/white/contact.png" alt="" title="" /><span>Contact</span></a></li>
               </ul>
               </div>  
         </div>
@@ -120,7 +120,11 @@
 
                   <li id="cpd_live" class="display_none"><a href="videos.html" class="close-popup" onClick="get_streaming_event()"><img src="images/icons/white/video.png" alt="" title="" /><span>CPD LIVE</span></a></li>
                   <li id="profile" class="display_none"><a href="my-profile.html" class="close-popup"><img src="images/icons/white/user.png" alt="" title="" onClick="get_profile_details()" /><span>Profile</span></a></li>
-                  <!-- <li><a href="features.html" class="close-popup"><img src="images/icons/white/settings.png" alt="" title="" /><span>Features</span></a></li> -->
+                  <li><a href="features.html" class="close-popup"><img src="images/icons/white/toogle.png" alt="" title="" /><span> Event Q & A</span></a></li>
+                  <li><a href="resources.html" class="close-popup" onclick="get_resources_items()"><img src="images/icons/white/download.png" alt="" title="" /><span>
+                  Resources</span></a></li>
+                  <li><a href="feedback.html" class="close-popup"><img src="images/icons/white/message.png" alt="" title="" /><span>Feedback</span></a></li>
+
                   <!-- <li><a href="photos.html" class="close-popup"><img src="images/icons/white/photos.png" alt="" title="" /><span>Gallery</span></a></li> -->
                   
                   <li><a href="#" data-popup=".popup-social" class="open-popup"><img src="images/icons/white/heart.png" alt="" title="" /><span>Social</span></a></li>
@@ -148,8 +152,8 @@
             <input type="submit" name="submit" class="form_submit" id="submit" value="SIGN IN" />
             </form>
             <div class="signup_bottom">
-            <p>Don't have an account?</p>
-            <a href="#" data-popup=".popup-signup" class="open-popup">SIGN UP</a>            </div>
+            <p>Haven't activated account ?</p>
+            <a href="#" data-popup=".popup-signup" class="open-popup">Activate Account</a>            </div>
             </div>
       <div class="close_loginpopup_button"><a href="#" class="close-popup"><img src="images/icons/white/menu_close.png" alt="" title="" /></a></div>
     </div>
@@ -158,24 +162,22 @@
     <!-- Register Popup -->
     <div class="popup popup-signup">
     <div class="content-block-login">
-      <h4>REGISTER</h4>
+      <h4>Activate Account</h4>
       <div id="register_response"></div>
       <div class="form_logo"><img src="images/logo.png" alt="" title="" /></div>
             <div class="loginform">
-            <form id="register_member" method="post">
-            <input type="text" name="first_name" value="" class="form_input required" placeholder="First name" />
-            <input type="text" name="last_name" value="" class="form_input required" placeholder="Last name" />            
-            <input type="email" name="email" value="" class="form_input required" placeholder="Email" />
-            <input type="text" name="member_no" value="" class="form_input required" placeholder="Member No." />
-            <input type="text" name="phone" value="" class="form_input required" placeholder="Phone" />
-            <input type="password" name="password" value="" class="form_input required" placeholder="Password" />
-            <input type="text" name="company" value="" class="form_input required" placeholder="Company current company" />
-            <input type="submit" name="submit" class="form_submit" id="submit" value="SIGN UP" />
-            </form>
-            <!--<div class="signup_social">
-                <a href="#" class="signup_facebook">FACEBOOK</a>
-                <a href="#" class="signup_twitter">TWITTER</a>            
-            </div>-->
+              <form id="register_member" method="post">
+                <input type="email" name="email" value="" class="form_input required" placeholder="Email" />
+                <input type="submit" name="submit" class="form_submit" id="submit" value="Activate Account" />
+              </form>
+              <!--<div class="signup_social">
+                  <a href="#" class="signup_facebook">FACEBOOK</a>
+                  <a href="#" class="signup_twitter">TWITTER</a>            
+              </div>-->
+               <div class="signup_bottom">
+                  <p>Already activated account?</p>
+                  <a href="#" data-popup=".popup-signup" class="open-popup">Login</a>            
+              </div>
             </div>
       <div class="close_loginpopup_button"><a href="#" class="close-popup"><img src="images/icons/white/menu_close.png" alt="" title="" /></a></div>
     </div>
@@ -189,14 +191,9 @@
       <div id="register_response"></div>
       <div class="form_logo"><img src="images/logo.png" alt="" title="" /></div>
             <div class="loginform">
-            <form id="register_member" method="post">
-            <input type="text" name="first_name" value="" class="form_input required" placeholder="First name" />
-            <input type="text" name="last_name" value="" class="form_input required" placeholder="Last name" />            
+            <form id="register_member" method="post">         
             <input type="email" name="email" value="" class="form_input required" placeholder="Email" />
-            <input type="text" name="member_no" value="" class="form_input required" placeholder="Member No." />
-            <input type="text" name="phone" value="" class="form_input required" placeholder="Phone" />
-            <input type="password" name="password" value="" class="form_input required" placeholder="Password" />
-            <input type="text" name="company" value="" class="form_input required" placeholder="Company current company" />
+            <input type="text" name="member_no" value="" class="form_input required" placeholder="Member No."/>
             <input type="submit" name="submit" class="form_submit" id="submit" value="SIGN UP" />
             </form>
             <!--<div class="signup_social">
@@ -248,11 +245,12 @@
     <div class="popup popup-event-question">
       <div class="content-block">
         <h4>Ask a question</h4>
-              <div id="streaming_response"></div>
+          <div class="form_logo"><img src="images/logo.png" alt="" title="" /></div>
+            <div id="streaming_response"></div>
             <div class="contactform">
               <form class="cmxform" id="questionForm" method="post" action="">
-                <label>Speaker Name:</label>
-                <input type="text" name="speakers_name" id="speakers_name" value="" class="form_input required" />
+                <label>Session Code:</label>
+                <input type="text" name="session_code" id="session_code" value="" class="form_input required" />
                 <label>Question:</label>
                 <textarea name="streaming_comment_description" id="streaming_comment_description" class="form_textarea textarea required" rows="" cols=""></textarea>
                 <input type="submit" name="submit" class="form_submit" id="submit" value="Send" />
@@ -269,6 +267,7 @@
 <script type="text/javascript" src="js/news.js"></script>
 <script type="text/javascript" src="js/events.js"></script>
 <script type="text/javascript" src="js/streaming.js"></script>
+<script type="text/javascript" src="js/resources.js"></script>
 <script type="text/javascript" src="js/queries.js"></script>
 <script src="js/jquery.validate.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="js/app.js"></script>

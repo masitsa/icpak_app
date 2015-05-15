@@ -15,7 +15,7 @@ function is_connected()
 }
 
 
-var EmployeeNewsService = function() {
+var EmployeeresourcesService = function() {
 
     var url;
 
@@ -30,13 +30,13 @@ var EmployeeNewsService = function() {
         return $.ajax({url: url + "/" + id});
     }
 
-    this.getallLatesNews = function() {
-		var request = url + "news/get_icpak_news" ;
+    this.getallLatesresources = function() {
+		var request = url + "resources/get_icpak_resources" ;
         return $.ajax({url: request});
     }
-    this.getNewsDetail = function(id) {
-		var request = url + "news/get_news_detail" ;
-        return $.ajax({url: url + "news/get_news_detail/" + id});
+    this.getresourcesDetail = function(id) {
+		var request = url + "resources/get_resources_detail" ;
+        return $.ajax({url: url + "resources/get_resources_detail/" + id});
     }
 
 
@@ -48,23 +48,23 @@ $(document).ready(function(){
 	//automatic_login();
 });
 
-function get_news_items()
+function get_resources_items()
 {
 	$( "#loader-wrapper" ).removeClass( "display_none" );
-	var service = new EmployeeNewsService();
+	var service = new EmployeeresourcesService();
 	service.initialize().done(function () {
 		console.log("Service initialized");
 	});
 	
 	//get client's credentials
 	
-	service.getallLatesNews().done(function (employees) {
+	service.getallLatesresources().done(function (employees) {
 		var data = jQuery.parseJSON(employees);
 		
 		if(data.message == "success")
 		{
-			// $( "#news-of-icpak" ).addClass( "display_block" );
-			$( "#icpak_news" ).html( data.result );
+			// $( "#resources-of-icpak" ).addClass( "display_block" );
+			$( "#icpak_resources" ).html( data.result );
 			$( "#loader-wrapper" ).addClass( "display_none" );
 		}
 		
@@ -76,10 +76,10 @@ function get_news_items()
 }
 
 
-function get_news_description(id)
+function get_resources_description(id)
 {
 	$( "#loader-wrapper" ).removeClass( "display_none" );
-	var service = new EmployeeNewsService();
+	var service = new EmployeeresourcesService();
 	service.initialize().done(function () {
 		console.log("Service initialized");
 	});
@@ -88,13 +88,13 @@ function get_news_description(id)
 	// var id = getURLParameter('id');
 	// alert(id);
 	
-	service.getNewsDetail(id).done(function (employees) {
+	service.getresourcesDetail(id).done(function (employees) {
 		var data = jQuery.parseJSON(employees);
 		
 		if(data.message == "success")
 		{
-			// $( "#news-of-icpak" ).addClass( "display_block" );
-			$( "#news_detail" ).html( data.result );
+			// $( "#resources-of-icpak" ).addClass( "display_block" );
+			$( "#resources_detail" ).html( data.result );
 			$( "#loader-wrapper" ).addClass( "display_none" );
 
 		}
@@ -106,12 +106,10 @@ function get_news_description(id)
 	});
 }
 
-//pass the variable in the link as follows e.g. news.html?id=1
-//on the news.html page get the parameter by javascript as follows var id = getURLParameter('id');
+//pass the variable in the link as follows e.g. resources.html?id=1
+//on the resources.html page get the parameter by javascript as follows var id = getURLParameter('id');
 //the function to get the url parameter is defined below
-function getURLParameter(name) {
-  return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null
-}
+
 
 
 

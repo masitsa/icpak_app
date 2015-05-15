@@ -4,7 +4,10 @@
     
      <div class="navbarpages">
        <div class="nav_left_logo"><a href="index.html"><img src="images/logo.png" alt="" title="" /></a></div>
-       <div class="nav_right_button"><a href="#" data-popup=".popup-menu" class="open-popup"><img src="images/icons/white/menu.png" alt="" title="" /></a></div>
+       <div class="nav_right_button">
+            <a href="#" data-popup=".popup-menu" class="open-popup"><img src="images/icons/white/menu.png" alt="" title="" /></a>
+            <a href="index.html" ><img src="images/icons/white/home.png" alt="" title=""  /></a>
+        </div>
      </div>
      <div id="pages_maincontent">
       
@@ -15,9 +18,11 @@
           	<div class="buttons-row">
                     <a href="#tab1" class="tab-link active button">Technical Query</a>
                     <a href="#tab2" class="tab-link button">Standards Query</a>
+                    <a href="#tab3" class="tab-link button" onclick="get_social_forum()">Social Forum</a>
+
               </div>
               
-              <div class="tabs-animated-wrap">
+              <div class="tabs-simple">
                     <div class="tabs">
                           <div id="tab1" class="tab active">
                                 <h4>Technical Query</h4>
@@ -51,6 +56,22 @@
                                     <label id="loader" style="display:none;"><img src="images/loader.gif" alt="Loading..." id="LoadingGraphic" /></label>
           						            </form>
           					            </div>
+                          </div> 
+                          <div id="tab3" class="tab">
+                                <div id="social_response"></div>
+                                <div class="contactform">
+                                  <form class="cmxform" id="social_forum_form" method="post" action="">
+                                   
+                                    <label>Status:</label>
+                                    <textarea name="member_text" id="member_text" class="form_textarea textarea required" rows="" cols=""></textarea>
+                                    <input type="submit" name="submit" class="form_submit" id="submit" value="Send" />
+                                    <label id="loader" style="display:none;"><img src="images/loader.gif" alt="Loading..." id="LoadingGraphic" /></label>
+                                  </form>
+
+                                </div>
+                                <!-- feedback -->
+                                <div id="forum-content"></div>
+                                <!-- feedback end -->
                           </div> 
                     </div>
               </div>
