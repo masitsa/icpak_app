@@ -33,6 +33,10 @@ var Login_service = function() {
 		// alert(url);
         return $.ajax({url: request});
     }
+     this.post_cpd_query = function(form_data) {
+		var request = url + "login/post_cpd_query";
+        return $.ajax({url: request, data: form_data, type: 'POST', processData: false,contentType: false});
+    }
 }
 
 
@@ -207,7 +211,7 @@ $(document).on("submit","form#login_member",function(e)
 			}
 			else
 			{
-				$("#response").html('<div class="alert alert-danger center-align">'+data.result+'</div>').fadeIn( "slow");
+				$("#login_response").html('<div class="alert alert-danger center-align">'+data.result+'</div>').fadeIn( "slow");
 			}
 			
 			$( "#loader-wrapper" ).addClass( "display_none" );
@@ -216,7 +220,7 @@ $(document).on("submit","form#login_member",function(e)
 	
 	else
 	{
-		$("#register_response").html('<div class="alert alert-danger center-align">'+"No internet connection - please check your internet connection then try again"+'</div>').fadeIn( "slow");
+		$("#login_response").html('<div class="alert alert-danger center-align">'+"No internet connection - please check your internet connection then try again"+'</div>').fadeIn( "slow");
 		$( "#loader-wrapper" ).addClass( "display_none" );
 	}
 	return false;
@@ -270,3 +274,60 @@ function get_social_user()
 		
 	});
 }
+
+
+
+//cpd forum query member
+$(document).on("submit","form#cpd_query_form",function(e)
+{
+	e.preventDefault();
+	
+	//get form values
+	var form_data = new FormData(this);
+		
+	$("#cpdquery_response").html('').fadeIn( "slow");
+	$( "#loader-wrapper" ).removeClass( "display_none" );
+
+	$( ".main-nav ul li#pro_social" ).css( "display", 'inline-block' );
+	$( ".main-nav ul li#profile" ).css( "display", 'inline-block' );
+	$( ".main-nav ul li#cpd_live" ).css( "display", 'inline-block' );
+
+	//check if there is a network connection
+	var connection = true;//is_connected();
+	
+	if(connection === true)
+	{
+		var service = new Login_service();
+		service.initialize().done(function () {
+			console.log("Service initialized");
+		});
+		
+		
+		service.post_cpd_query(form_data).done(function (employees) {
+			var data = jQuery.parseJSON(employees);
+			
+			if(data.message == "success")
+			{
+				//set local variables for future auto login
+
+				$("#cpdquery_response").html('<div class="alert alert-success center-align">'+"Your question has been submited."+'</div>').fadeIn( "slow");
+		
+			}
+			else
+			{
+				$("#cpdquery_response").html('<div class="alert alert-danger center-align">'+data.result+'</div>').fadeIn( "slow");
+
+			}
+			
+			$( "#loader-wrapper" ).addClass( "display_none" );
+        });
+	}
+	
+	else
+	{
+		$("#cpdquery_response").html('<div class="alert alert-danger center-align">'+"No internet connection - please check your internet connection then try again"+'</div>').fadeIn( "slow");
+		$( "#loader-wrapper" ).addClass( "display_none" );
+	}
+	// get_profile_details();
+	return false;
+});

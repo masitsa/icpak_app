@@ -42,9 +42,9 @@
                       News</span></a></li>
                       <li><a href="events.html" class="close-panel" onClick="get_event_items()"><img src="images/icons/white/toogle.png" alt="" title="" /><span>Upcoming Events</span></a></li>
                       <span id="profile_icon"></span>
-                      <li><a href="features.html" class="close-panel"><img src="images/icons/white/message.png" alt="" title="" /><span>ICPAK</span><strong class="green">12</strong></a></li>
-                      <li><a href="features.html" class="close-panel"><img src="images/icons/white/download.png" alt="" title="" /><span>Downloads</span><strong class="blue">5</strong></a></li>
-                      <li><a href="index.html" class="close-panel"><img src="images/icons/white/lock.png" alt="" title="" /><span>Logout</span></a></li>
+                      <li><a href="feedback.html" class="close-panel"><img src="images/icons/white/message.png" alt="" title="" /><span>Feedback</span></a></li>
+                      <li><a href="resources.html" class="close-panel"onClick="get_resources_items()"><img src="images/icons/white/download.png" alt="" title="" /><span>Resourses</span></a></li>
+                      <!-- <li><a href="index.html" class="close-panel"><img src="images/icons/white/lock.png" alt="" title="" /><span>Logout</span></a></li> -->
                     </ul>
                   </nav>
           </div>
@@ -120,7 +120,7 @@
 
                   <li id="cpd_live" class="display_none"><a href="videos.html" class="close-popup" onClick="get_streaming_event()"><img src="images/icons/white/video.png" alt="" title="" /><span>CPD LIVE</span></a></li>
                   <li id="profile" class="display_none"><a href="my-profile.html" class="close-popup"><img src="images/icons/white/user.png" alt="" title="" onClick="get_profile_details()" /><span>Profile</span></a></li>
-                  <li><a href="features.html" class="close-popup"><img src="images/icons/white/toogle.png" alt="" title="" /><span> Event Q & A</span></a></li>
+                  <li><a href="session.html" class="close-popup"><img src="images/icons/white/toogle.png" alt="" title="" onclick="get_question_answer_form();" /><span> Event Q & A</span></a></li>
                   <li><a href="resources.html" class="close-popup" onclick="get_resources_items()"><img src="images/icons/white/download.png" alt="" title="" /><span>
                   Resources</span></a></li>
                   <li><a href="feedback.html" class="close-popup"><img src="images/icons/white/message.png" alt="" title="" /><span>Feedback</span></a></li>
@@ -139,6 +139,9 @@
     
     <!-- Login Popup -->
     <div class="popup popup-login" id="ModalBehaviour">
+    <div id="loader-wrapper" class="display_none">
+          <div id="loader"></div>
+      </div>
     <div class="content-block-login">
       <h4>LOGIN</h4>
       
