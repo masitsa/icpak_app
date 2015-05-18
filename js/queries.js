@@ -57,6 +57,10 @@ var Query_Service = function() {
 		var request = url + "queries/get_session_questions";
         return $.ajax({url: request});
     }
+    this.post_feedback = function(form_data) {
+		var request = url + "queries/post_feedback";
+        return $.ajax({url: request, data: form_data, type: 'POST', processData: false,contentType: false});
+    }
  
 }
 //on page load if the user has logged in previously,
@@ -305,10 +309,6 @@ $(document).on("submit","form#ContactFormHe",function(e)
 	$("#contact_response").html('').fadeIn( "slow");
 	$( "#loader-wrapper" ).removeClass( "display_none" );
 
-	$( ".main-nav ul li#pro_social" ).css( "display", 'inline-block' );
-	$( ".main-nav ul li#profile" ).css( "display", 'inline-block' );
-	$( ".main-nav ul li#cpd_live" ).css( "display", 'inline-block' );
-
 	//check if there is a network connection
 	var connection = true;//is_connected();
 	
@@ -525,3 +525,58 @@ function get_session_questions()
 		}
 	});
 }
+function get_download(article_id,kb_download)
+{
+	window.open('http://www.icpak.com/download.php?a_id='+article_id+'&download='+kb_download, '_system', 'location=yes'); 'return false;';
+}
+
+
+//social forum query member
+$(document).on("submit","form#FeedbackForm",function(e)
+{
+	e.preventDefault();
+	
+	//get form values
+	var form_data = new FormData(this);
+		
+	$("#feedback_response").html('').fadeIn( "slow");
+	$( "#loader-wrapper" ).removeClass( "display_none" );
+	//check if there is a network connection
+	var connection = true;//is_connected();
+	
+	if(connection === true)
+	{
+		var service = new Query_Service();
+		service.initialize().done(function () {
+			console.log("Service initialized");
+		});
+		
+		
+		service.post_feedback(form_data).done(function (employees) {
+			var data = jQuery.parseJSON(employees);
+			
+			if(data.message == "success")
+			{
+				//set local variables for future auto login
+
+				$("#feedback_response").html('<div class="alert alert-success center-align">'+"Your comment has been submited."+'</div>').fadeIn( "slow");
+		
+			}
+			else
+			{
+				$("#feedback_response").html('<div class="alert alert-danger center-align">'+data.result+'</div>').fadeIn( "slow");
+
+			}
+			
+			$( "#loader-wrapper" ).addClass( "display_none" );
+        });
+	}
+	
+	else
+	{
+		$("#feedback_response").html('<div class="alert alert-danger center-align">'+"No internet connection - please check your internet connection then try again"+'</div>').fadeIn( "slow");
+		$( "#loader-wrapper" ).addClass( "display_none" );
+	}
+	get_social_forum();
+	return false;
+});
