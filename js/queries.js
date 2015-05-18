@@ -435,7 +435,7 @@ function get_question_answer_form()
 			$( "#loader-wrapper" ).addClass( "display_none" );
 		}
 	});
-	// get_session_questions();
+	 get_session_questions();
 }
 
 
@@ -491,7 +491,7 @@ $(document).on("submit","form#question_answer_form",function(e)
 		$("#social_response").html('<div class="alert alert-danger center-align">'+"No internet connection - please check your internet connection then try again"+'</div>').fadeIn( "slow");
 		$( "#loader-wrapper" ).addClass( "display_none" );
 	}
-	get_social_forum();
+	
 	return false;
 });
 
@@ -500,7 +500,7 @@ $(document).on("submit","form#question_answer_form",function(e)
 
 function get_session_questions()
 {
-	$( "#loader-wrapper" ).removeClass( "display_none" );
+	// $( "#loader-wrapper" ).removeClass( "display_none" );
 	var service = new Query_Service();
 	service.initialize().done(function () {
 		console.log("Service initialized");
@@ -515,13 +515,13 @@ function get_session_questions()
 		{
 			// $( "#news-of-icpak" ).addClass( "display_block" );
 			$( "#active_session_question" ).html( data.result );
-			$( "#loader-wrapper" ).addClass( "display_none" );
+			// $( "#loader-wrapper" ).addClass( "display_none" );
 		}
 		
 		else
 		{
 			$( "#active_session_question" ).html(" No one has made a comment yet");
-			$( "#loader-wrapper" ).addClass( "display_none" );
+			// $( "#loader-wrapper" ).addClass( "display_none" );
 		}
 	});
 }
