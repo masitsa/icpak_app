@@ -203,11 +203,13 @@ $(document).on("submit","form#login_member",function(e)
 				$( ".main-nav ul li#cpd_live" ).css( "display", 'inline-block' );
 				$("#login_response").html('<div class="alert alert-success center-align">'+"You have successfully logged in to your account. Please close this screen using the x button"+'</div>').fadeIn( "slow");
 		
-
-				
 				$( "#login_icon" ).html( '<a href="my-profile.html" onClick="get_profile_details()" class="close-popup"><img src="images/icons/white/user.png" alt="" title="" /><span>Profile</span></a>' );
 
 				get_event_user();
+				
+				$('.popup-login').removeClass('modal-in');
+				$('.popup-login').css('display', 'none');
+				$('.popup-overlay').removeClass('modal-overlay-visible');
 			}
 			else
 			{
