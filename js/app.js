@@ -19,8 +19,8 @@ var Login_service = function() {
         return $.ajax({url: request, data: form_data, type: 'POST', processData: false,contentType: false});
     }
 
-    this.login_member = function(email, password) {
-		var request = url + "login/login_member/" + email + "/" + password;
+    this.login_member = function(member_no, password) {
+		var request = url + "login/login_member/" + member_no + "/" + password;
         return $.ajax({url: request});
     }
      this.getProfileDetails = function() {
@@ -39,6 +39,125 @@ var Login_service = function() {
     }
 }
 
+
+/* Function to check for network connectivity */
+document.addEventListener("deviceready", onDeviceReady, false);
+
+// PhoneGap is ready
+//
+function onDeviceReady() 
+{
+    
+    cordova.plugins.backgroundMode.setDefaults({ title:'ICPAK LIVE', text:'ICPAK LIVE', silent: true});
+    
+    //check if background action is enabled
+    var enabled = cordova.plugins.backgroundMode.isEnabled();
+    if(enabled === false)
+    {
+        // Enable background mode
+        cordova.plugins.backgroundMode.enable();
+    }
+
+    // Called when background mode has been activated
+    cordova.plugins.backgroundMode.onactivate = function () {
+        
+        //clear other timeouts
+        //clearTimeout(all_message_timeout);
+        //clearTimeout(single_message_timeout);
+        
+    };
+    
+    cordova.plugins.backgroundMode.onfailure = function(errorCode) {
+        cordova.plugins.backgroundMode.configure({
+                        text:errorCode
+                    });        
+    };
+}
+
+(function message_cheker() {
+        
+        $.ajax({
+            url: base_url+'news/count_unread_news',
+            cache:false,
+            contentType: false,
+            processData: false,
+            dataType: 'json',
+            statusCode: {
+                302: function() {
+                    //alert('302');
+                }
+            },
+            success: function(data) 
+            {
+                var prev_total_news = parseInt(window.localStorage.getItem("total_news"));
+                var total_received = parseInt(data.unread_messages);
+                
+                
+                
+                if(total_received > prev_total_news)
+                {
+                    // Modify the currently displayed notification
+                    window.localStorage.setItem("total_news", total_received);
+                    
+                    set_news_data();
+                    load_messages();
+                    
+                    //store received messages
+                    var message_data = data.news;
+                    
+                    //calculate number of messages received
+                    var difference = total_received - prev_total_news;
+                    var count = 0;
+                    $.each(message_data, function(idx, obj) 
+                    {
+                        count++;
+                        if(count == 1)
+                        {
+                            var txt = 'news';
+                        }
+                        else
+                        {
+                            var txt = 'news';
+                        }
+                        $('#news_badge').html('<span style="font-size:10px; float:right; background-color:red;" class="img-rounded">'+count+'</span>');
+                        
+                        //display notification
+                        cordova.plugins.backgroundMode.configure({title:'New message', text:'You have '+count+' new '+txt, silent: false});
+                        var message_result = obj.result;//alert(message_result);
+                       
+                        //alert(obj.tagName);
+                        
+                        //check if chat history exists
+                        var prev_msg = window.localStorage.getItem("news_history");
+                        if(prev_msg == null)
+                        {
+                            var new_msg = message_result;
+                        }
+                        
+                        else
+                        {
+                            var new_msg = prev_msg+message_result;
+                        }
+                        window.localStorage.setItem("news_history", new_msg);
+                        
+                        //if msg pop up is open
+                        
+                    });
+                }
+                
+                else
+                {
+                    
+                    //cordova.plugins.backgroundMode.configure({title:'New message', text:'new message', silent: true});
+                    window.localStorage.setItem("total_news", total_received);
+                }
+            },
+            complete: function() 
+            {
+                setTimeout(message_cheker, 2000);
+            }
+        });
+    })();
 
 //on page load if the user has logged in previously,
 //log them in automatically
@@ -100,11 +219,13 @@ function automatic_login()
 		if(data.message == "success")
 		{
 			//display login items
-			$( ".main-nav ul li#pro_social" ).css( "display", 'inline-block' );
-			$( ".main-nav ul li#profile" ).css( "display", 'inline-block' );
-			$( ".main-nav ul li#cpd_live" ).css( "display", 'inline-block' );
-			$( ".user-nav ul li#my_account" ).css( "display", 'inline-block' );
-			$( "#login_icon" ).html( '<a href="my-profile.html" class="close-popup"><img src="images/icons/white/user.png" alt="" title="" onClick="get_profile_details()"/><span>Profile</span></a>' );
+			// $( ".main-nav ul li#pro_social" ).css( "display", 'inline-block' );
+			// $( ".main-nav ul li#profile" ).css( "display", 'inline-block' );
+			// $( ".main-nav ul li#cpd_live" ).css( "display", 'inline-block' );
+			$( "#first_page" ).css( "display_none", 'inline-block' );
+			$( "#logged_in_page" ).css( "display", 'inline-block' );
+			$( "#user_logged_in" ).html( '<h4>Welcome back Martin</h4>' );
+			$( "#login_icon" ).html( '<a href="events.html" class="close-popup"><img src="images/icons/white/toogle.png" alt="" title="" onClick="get_event_items()"/><span>Events</span></a>' );
 			$( "#profile_icon" ).html( '<li><a href="my-profile.html" class="close-popup"><img src="images/icons/white/user.png" alt="" title="" onClick="get_profile_details()"/><span>Profile</span></a></li>' );
 		}
 		else
@@ -189,10 +310,10 @@ $(document).on("submit","form#login_member",function(e)
 		});
 		
 		//get form values
-		var email = $("input[name=email]").val();
+		var member_no = $("input[name=member_no]").val();
 		var password = $("input[name=password]").val();
 		
-		service.login_member(email, password).done(function (employees) {
+		service.login_member(member_no, password).done(function (employees) {
 			var data = jQuery.parseJSON(employees);
 			
 			if(data.message == "success")
@@ -331,3 +452,23 @@ $(document).on("submit","form#cpd_query_form",function(e)
 	// get_profile_details();
 	return false;
 });
+
+function set_news_data()
+{
+		var service = new EmployeeNewsService();
+		service.initialize().done(function () {
+			console.log("Service initialized");
+		});
+		service.getallLatesNews().done(function (employees) {
+		
+		var data = jQuery.parseJSON(employees);
+		
+		window.localStorage.setItem("news_history", data.result);
+		window.localStorage.setItem("total_news", data.total);
+	});
+}
+function load_messages()
+{
+	var messages = window.localStorage.getItem("news_history");
+	$("#icpak_news").html(messages);
+}

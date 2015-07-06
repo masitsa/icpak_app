@@ -66,6 +66,8 @@ function get_news_items()
 			// $( "#news-of-icpak" ).addClass( "display_block" );
 			$( "#icpak_news" ).html( data.result );
 			$( "#loader-wrapper" ).addClass( "display_none" );
+			window.localStorage.setItem("news_history", data.result);
+			window.localStorage.setItem("total_news", data.total_received);
 		}
 		
 		else

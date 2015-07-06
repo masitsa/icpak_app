@@ -1694,3 +1694,27 @@ cursor:pointer;
   width:10%;
   text-align:center;
 }
+.header-logged
+{
+  color: white !important;
+  margin-top: 90px;
+  padding-left: 10px;
+}
+.header-logged h4 {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+    /*margin: 0;*/
+    /*padding: 0 0 10px;*/
+    text-align: center;
+}
+.header-logged h3 {
+   color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.homepage-two
+{
+  background-color: #000;
+}
