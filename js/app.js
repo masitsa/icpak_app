@@ -319,14 +319,18 @@ $(document).on("submit","form#login_member",function(e)
 			if(data.message == "success")
 			{
 				//display login items
-				$( ".main-nav ul li#pro_social" ).css( "display", 'inline-block' );
-				$( ".main-nav ul li#profile" ).css( "display", 'inline-block' );
-				$( ".main-nav ul li#cpd_live" ).css( "display", 'inline-block' );
-				$("#login_response").html('<div class="alert alert-success center-align">'+"You have successfully logged in to your account. Please close this screen using the x button"+'</div>').fadeIn( "slow");
-		
-				$( "#login_icon" ).html( '<a href="my-profile.html" onClick="get_profile_details()" class="close-popup"><img src="images/icons/white/user.png" alt="" title="" /><span>Profile</span></a>' );
-
+				
 				get_event_user();
+
+				var member_first_name = window.localStorage.getItem("member_first_name");
+
+				$( "#first_page" ).css( "display_none", 'inline-block' );
+				$( "#logged_in_page" ).css( "display", 'inline-block' );
+				$( "#user_logged_in" ).html( '<h4>Welcome back '+member_first_name+'</h4>' );
+				$( "#login_icon" ).html( '<a href="events.html" class="close-popup"><img src="images/icons/white/toogle.png" alt="" title="" onClick="get_event_items()"/><span>Events</span></a>' );
+				$( "#profile_icon" ).html( '<li><a href="my-profile.html" class="close-popup"><img src="images/icons/white/user.png" alt="" title="" onClick="get_profile_details()"/><span>Profile</span></a></li>' );
+
+				
 				
 				$('.popup-login').removeClass('modal-in');
 				$('.popup-login').css('display', 'none');
@@ -365,11 +369,16 @@ function get_event_user()
 		var first_name = data.member_first_name;
 		var email = data.member_email;
 		var member_id = data.member_id;
-		
+		var member_no = data.member_code;
+
+		window.localStorage.setItem("member_id", member_id);
+		window.localStorage.setItem("member_first_name", email);
+		window.localStorage.setItem("member_email", email);
+		window.localStorage.setItem("member_no", member_no);
+
 		$( "#questionForm_email" ).val( email );
 		$( "#questionForm_user" ).val( first_name );
 		$( "#questionForm_id" ).val( member_id );
-		
 		$( "#app_user" ).html( first_name );
 	});
 }
