@@ -30,7 +30,7 @@ var EmployeeStreamingService = function() {
     }
 
     this.findByName = function() {
-		var request = url + "streaming/get_streaming_event" ;
+		var request = url + "streaming/get_recording_event" ;
         return $.ajax({url: request});
     }
     this.get_event_user = function() {

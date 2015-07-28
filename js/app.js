@@ -23,6 +23,10 @@ var Login_service = function() {
 		var request = url + "login/login_member/" + member_no + "/" + password;
         return $.ajax({url: request});
     }
+    this.get_member_details = function(member_no){
+    	var request = url + "login/get_member_information/" + member_no;
+        return $.ajax({url: request});
+    }
      this.getProfileDetails = function() {
 		var request = url + "login/get_client_profile";
         return $.ajax({url: request});
@@ -37,6 +41,7 @@ var Login_service = function() {
 		var request = url + "login/post_cpd_query";
         return $.ajax({url: request, data: form_data, type: 'POST', processData: false,contentType: false});
     }
+
 }
 
 
@@ -210,20 +215,20 @@ function automatic_login()
 	});
 	
 	//get member's credentials
-	var email = window.localStorage.getItem("member_email");
+	var member_no = window.localStorage.getItem("member_no");
 	var password = window.localStorage.getItem("member_password");
 	
-	service.login_member(email, password).done(function (employees) {
+	service.login_member(member_no, password).done(function (employees) {
 		var data = jQuery.parseJSON(employees);//alert(email+' '+password);
 		
 		if(data.message == "success")
 		{
 			//display login items
-			// $( ".main-nav ul li#pro_social" ).css( "display", 'inline-block' );
-			// $( ".main-nav ul li#profile" ).css( "display", 'inline-block' );
-			// $( ".main-nav ul li#cpd_live" ).css( "display", 'inline-block' );
-			$( "#first_page" ).css( "display_none", 'inline-block' );
-			$( "#logged_in_page" ).css( "display", 'inline-block' );
+			$( ".main-nav ul li#pro_social" ).css( "display", 'inline-block' );
+			$( ".main-nav ul li#profile" ).css( "display", 'inline-block' );
+			$( ".main-nav ul li#cpd_live" ).css( "display", 'inline-block' );
+			// $( "#first_page" ).css( "display_none", 'inline-block' );
+			// $( "#logged_in_page" ).css( "display", 'inline-block' );
 			$( "#user_logged_in" ).html( '<h4>Welcome back Martin</h4>' );
 			$( "#login_icon" ).html( '<a href="events.html" class="close-popup"><img src="images/icons/white/toogle.png" alt="" title="" onClick="get_event_items()"/><span>Events</span></a>' );
 			$( "#profile_icon" ).html( '<li><a href="my-profile.html" class="close-popup"><img src="images/icons/white/user.png" alt="" title="" onClick="get_profile_details()"/><span>Profile</span></a></li>' );
@@ -297,7 +302,7 @@ $(document).on("submit","form#login_member",function(e)
 {
 	e.preventDefault();
 	$("#login_response").html('').fadeIn( "slow");
-	$( "#loader-wrapper" ).removeClass( "display_none" );
+	$("#loader-wrapper" ).removeClass( "display_none" );
 	
 	//check if there is a network connection
 	var connection = true;//is_connected();
@@ -319,22 +324,29 @@ $(document).on("submit","form#login_member",function(e)
 			if(data.message == "success")
 			{
 				//display login items
+				service.get_member_details(member_no).done(function (employees) {
+				var data_two = jQuery.parseJSON(employees);
+				var first_name = data_two.member_first_name;
+				$( "#user_logged_in" ).html( '<h4>Welcome back '+first_name+'</h4>' );
+				});
 				
-				get_event_user();
+				$( ".main-nav ul li#pro_social" ).css( "display", 'inline-block' );
+				$( ".main-nav ul li#profile" ).css( "display", 'inline-block' );
+				$( ".main-nav ul li#cpd_live" ).css( "display", 'inline-block' );
+				$( ".user-nav ul li#my_account" ).css( "display", 'inline-block' );
+	
 
-				var member_first_name = window.localStorage.getItem("member_first_name");
-
-				$( "#first_page" ).css( "display_none", 'inline-block' );
-				$( "#logged_in_page" ).css( "display", 'inline-block' );
-				$( "#user_logged_in" ).html( '<h4>Welcome back '+member_first_name+'</h4>' );
-				$( "#login_icon" ).html( '<a href="events.html" class="close-popup"><img src="images/icons/white/toogle.png" alt="" title="" onClick="get_event_items()"/><span>Events</span></a>' );
+				// $( "#first_page" ).css( "display_none", 'inline-block' );
+				// $( "#logged_in_page" ).css( "display", 'inline-block' );
+				
+				$( "#login_icon" ).html( '<a href="my-profile.html" class="close-popup"><img src="images/icons/white/user.png" alt="" title="" onClick="get_profile_details()"/><span>Profile</span></a>' );
 				$( "#profile_icon" ).html( '<li><a href="my-profile.html" class="close-popup"><img src="images/icons/white/user.png" alt="" title="" onClick="get_profile_details()"/><span>Profile</span></a></li>' );
 
-				
-				
 				$('.popup-login').removeClass('modal-in');
 				$('.popup-login').css('display', 'none');
 				$('.popup-overlay').removeClass('modal-overlay-visible');
+				
+				
 			}
 			else
 			{
@@ -372,7 +384,7 @@ function get_event_user()
 		var member_no = data.member_code;
 
 		window.localStorage.setItem("member_id", member_id);
-		window.localStorage.setItem("member_first_name", email);
+		window.localStorage.setItem("member_first_name", first_name);
 		window.localStorage.setItem("member_email", email);
 		window.localStorage.setItem("member_no", member_no);
 
