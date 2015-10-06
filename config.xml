@@ -89,7 +89,7 @@
    
    <!-- iPhone / iPod Touch  -->
 <icon src="res/icon/ios/icon-60.png" gap:platform="ios" width="60" height="60" />
-<icon src="res/icon/ios/icon-60-2x.png" gap:platform="ios" width="120" height="120" />
+<icon src="res/icon/ios/icon-120.png" gap:platform="ios" width="120" height="120" />
 <icon src="res/icon/ios/icon-152.png" gap:platform="ios" width="152" height="152" />
 
     <!-- Define app splash screen for each platform. -->
