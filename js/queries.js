@@ -530,6 +530,11 @@ function get_download(article_id,kb_download)
 	window.open('http://www.icpak.com/download.php?a_id='+article_id+'&download='+kb_download, '_system', 'location=yes'); 'return false;';
 }
 
+function get_item_download(kb_download)
+{
+	window.open(kb_download, '_system', 'location=yes'); 'return false;';
+}
+
 
 //social forum query member
 $(document).on("submit","form#FeedbackForm",function(e)

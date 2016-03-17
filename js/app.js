@@ -174,7 +174,7 @@ $(document).ready(function(){
 	$( ".main-nav ul li#cpd_live" ).css( "display", 'none' );
 	$( ".user-nav ul li#my_account" ).css( "display", 'none' );
 	
-	automatic_login();
+	// automatic_login();
 });
 
 function get_profile_details()
