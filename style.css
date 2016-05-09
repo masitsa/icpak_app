@@ -689,7 +689,7 @@ float:left;
 
 
 ul.features_list_detailed{
-padding:10px 0 30px 0;
+padding:0px 0 10px 0;
 width:100%;
 margin:0px;
 list-style:none;
@@ -1740,4 +1740,13 @@ a.form_submit {
   padding-top: 40px;
   /*height: 100% !important;*/
 
+}
+
+.pull-left
+{
+  float: left;
+}
+.pull-right
+{
+  float: right;
 }

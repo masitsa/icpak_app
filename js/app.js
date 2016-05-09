@@ -19,18 +19,25 @@ var Login_service = function() {
         return $.ajax({url: request, data: form_data, type: 'POST', processData: false,contentType: false});
     }
 
-    this.login_member = function(member_no, password) {
-		var request = url + "login/login_member/" + member_no + "/" + password;
-        return $.ajax({url: request});
+    this.login_member = function(form_data) {
+		var request = url + "login/login_member";
+        return $.ajax({url: request, data: form_data, type: 'POST', processData: false,contentType: false});
+    }
+    this.edit_member_contact = function(form_data) {
+		var request = url + "login/edit_member_contact";
+        return $.ajax({url: request, data: form_data, type: 'POST', processData: false,contentType: false});
     }
     this.get_member_details = function(member_no){
     	var request = url + "login/get_member_information/" + member_no;
         return $.ajax({url: request});
     }
-     this.getProfileDetails = function() {
-		var request = url + "login/get_client_profile";
-        return $.ajax({url: request});
-    }
+    this.getProfileDetails = function(applicationRefId1,memberRefId1,member_no) {
+     
+		var request = url + "login/get_client_profile/"+applicationRefId1+"/"+memberRefId1+"/"+member_no;
+		return $.ajax({url: request});
+		// return $.ajax({url: request, data: {applicationRefId: applicationRefId1, memberRefId: memberRefId1}, type: 'POST', processData: false,contentType: false});
+		
+   }
 
     this.get_event_user = function() {
 		var request = url + "login/get_logged_in_member" ;
@@ -40,6 +47,20 @@ var Login_service = function() {
      this.post_cpd_query = function(form_data) {
 		var request = url + "login/post_cpd_query";
         return $.ajax({url: request, data: form_data, type: 'POST', processData: false,contentType: false});
+    }
+    this.getEventsBookings = function(post_id,booking_refid) {
+		var request = url + "events/get_accomodations" ;
+        return $.ajax({url: url + "events/get_accomodations/"+post_id+ "/"+booking_refid});
+    }
+    this.getAccommodationAccount = function(booking_refid,accomodation_refid,post_id,hotel,fee,member_no) {
+		var request = url + "events/getaccount" ;
+		return $.ajax({url: request, data: {booking_refid: booking_refid,accomodation_refid: accomodation_refid,post_id: post_id, hotel: hotel, fee: fee, member_no: member_no}, type: 'POST', processData: false,contentType: false});
+    }
+    this.book_member = function(post_id,booking_refid,member_no,hotel,accomodation_refid,fee) {
+    
+		var request = url + "events/book_member_to_event";
+		console.log({booking_refid: booking_refid, accomodation_refid: accomodation_refid, post_id: post_id, hotel: hotel, fee: fee, member_no: member_no});
+		return $.ajax({url: request, data: {booking_refid: booking_refid, accomodation_refid: accomodation_refid, post_id: post_id, hotel: hotel, fee: fee, member_no: member_no}, type: 'POST'});
     }
 
 }
@@ -167,32 +188,68 @@ function onDeviceReady()
 //on page load if the user has logged in previously,
 //log them in automatically
 $(document).ready(function(){
-		
-	$("span[id=user_pass]").val("user");
-	$( ".main-nav ul li#pro_social" ).css( "display", 'none' );
-	$( ".main-nav ul li#profile" ).css( "display", 'none' );
-	$( ".main-nav ul li#cpd_live" ).css( "display", 'none' );
-	$( ".user-nav ul li#my_account" ).css( "display", 'none' );
+
+	var member_no = window.localStorage.getItem('member_no');
+
+	if(member_no != null)	
+	{
+		$( ".main-nav ul li#pro_social" ).css( "display", 'inline-block' );
+		$( ".main-nav ul li#profile" ).css( "display", 'inline-block' );
+		$( ".main-nav ul li#cpd_live" ).css( "display", 'inline-block' );
+		$( ".user-nav ul li#my_account" ).css( "display", 'inline-block' );
+
+		$( "#login_icon" ).html( '<a href="my-profile.html" class="close-popup"><img src="images/icons/white/user.png" alt="" title="" onClick="get_profile_details()"/><span>Profile</span></a>' );
+		$( "#profile_icon" ).html( '<li><a href="my-profile.html" class="close-popup"><img src="images/icons/white/user.png" alt="" title="" onClick="get_profile_details()"/><span>Profile</span></a></li>' );
+
+	}
+	else
+	{
+		$("span[id=user_pass]").val("user");
+		$( ".main-nav ul li#pro_social" ).css( "display", 'none' );
+		$( ".main-nav ul li#profile" ).css( "display", 'none' );
+		$( ".main-nav ul li#cpd_live" ).css( "display", 'none' );
+		$( ".user-nav ul li#my_account" ).css( "display", 'none' );
+
+	}
+	
 	
 	// automatic_login();
 });
 
 function get_profile_details()
 {
-	$( "#loader-wrapper" ).removeClass( "display_none" );
+	
 	var service = new Login_service();
 	service.initialize().done(function () {
 		console.log("Service initialized");
 	});
 	
-	
-	service.getProfileDetails().done(function (employees) {
+	var applicationRefId1 = window.localStorage.getItem('applicationRefId');
+    var memberRefId1 = window.localStorage.getItem('memberRefId');
+    var member_no = window.localStorage.getItem('member_no');
+
+    var profile_details = window.localStorage.getItem('profile_details');
+
+    // please show if there is somethis to show
+
+    if(profile_details == null)
+    {
+    	$( "#loader-wrapper" ).removeClass( "display_none" );
+    }
+    else
+    {
+	   $( "#my_profile" ).html( profile_details );
+
+    }
+
+	service.getProfileDetails(applicationRefId1,memberRefId1,member_no).done(function (employees) {
 		var data = jQuery.parseJSON(employees);
 		
 		if(data.message == "success")
 		{
 			// $( "#news-of-icpak" ).addClass( "display_block" );
 			$( "#my_profile" ).html( data.result );
+			window.localStorage.setItem("profile_details",data.result);
 			$( "#loader-wrapper" ).addClass( "display_none" );
 		}
 		
@@ -304,6 +361,9 @@ $(document).on("submit","form#login_member",function(e)
 	$("#login_response").html('').fadeIn( "slow");
 	$("#loader-wrapper" ).removeClass( "display_none" );
 	
+	//get form values
+	var form_data = new FormData(this);
+
 	//check if there is a network connection
 	var connection = true;//is_connected();
 	
@@ -315,20 +375,30 @@ $(document).on("submit","form#login_member",function(e)
 		});
 		
 		//get form values
-		var member_no = $("input[name=member_no]").val();
-		var password = $("input[name=password]").val();
-		
-		service.login_member(member_no, password).done(function (employees) {
+		// var member_no = $("input[name=member_no]").val();
+		// var password = $("input[name=password]").val();
+		// alert(form_data);
+		service.login_member(form_data).done(function (employees) {
 			var data = jQuery.parseJSON(employees);
 			
 			if(data.message == "success")
 			{
-				//display login items
-				service.get_member_details(member_no).done(function (employees) {
-				var data_two = jQuery.parseJSON(employees);
-				var first_name = data_two.member_first_name;
-				$( "#user_logged_in" ).html( '<h4>Welcome back '+first_name+'</h4>' );
-				});
+
+
+				window.localStorage.setItem("member_no", data['result']['member_id']);
+				window.localStorage.setItem("member_login_status", data['result']['member_login_status']);
+				window.localStorage.setItem("member_email", data['result']['member_email']);
+				window.localStorage.setItem("member_first_name", data['result']['member_first_name']);
+				window.localStorage.setItem("member_no", data['result']['member_id']);
+				window.localStorage.setItem("memberRefId", data['result']['memberRefId']);
+				window.localStorage.setItem("applicationRefId", data['result']['applicationRefId']);
+				window.localStorage.setItem("member_code", data['result']['member_code']);
+
+				var member_first_name = window.localStorage.getItem('member_first_name');
+
+
+				$( "#user_logged_in" ).html( '<h4>Welcome back '+member_first_name+'</h4>' );
+			
 				
 				$( ".main-nav ul li#pro_social" ).css( "display", 'inline-block' );
 				$( ".main-nav ul li#profile" ).css( "display", 'inline-block' );
@@ -495,3 +565,258 @@ function load_messages()
 	var messages = window.localStorage.getItem("news_history");
 	$("#icpak_news").html(messages);
 }
+
+function pass_data(phone,email,address1,applicationRefId)
+{
+	var myApp = new Framework7();
+ 
+	var $$ = Dom7;
+
+	myApp.popup('.popup-edit-contact');
+
+	document.getElementById("email_address").value = email;
+	document.getElementById("telephone1").value = phone;
+	document.getElementById("address1").value = address1;
+	document.getElementById("applicationRefId").value = applicationRefId;
+}
+
+
+//Login member
+$(document).on("submit","form#edit_member",function(e)
+{
+	e.preventDefault();
+	$("#edit_contact_response").html('').fadeIn( "slow");
+	$("#loader-wrapper" ).removeClass( "display_none" );
+	
+	//get form values
+	var form_data = new FormData(this);
+
+	//check if there is a network connection
+	var connection = true;//is_connected();
+	
+	if(connection === true)
+	{
+		var service = new Login_service();
+		service.initialize().done(function () {
+			console.log("Service initialized");
+		});
+		
+		//get form values
+		service.edit_member_contact(form_data).done(function (employees) {
+			var data = jQuery.parseJSON(employees);
+			
+			if(data.message == "success")
+			{
+				myApp.alert('You have successfully made a change to your profile','Successful');
+				get_profile_details();
+
+				document.getElementById("email_address").value = '';
+				document.getElementById("telephone1").value = '';
+				document.getElementById("address1").value = '';
+
+				$('.popup-edit-contact').removeClass('modal-in');
+				$('.popup-edit-contact').css('display', 'none');
+				$('.popup-overlay').removeClass('modal-overlay-visible');
+			}
+			else
+			{
+				$("#edit_contact_response").html('<div class="alert alert-danger center-align">'+data.result+'</div>').fadeIn( "slow");
+			}
+			
+			$( "#loader-wrapper" ).addClass( "display_none" );
+        });
+	}
+	
+	else
+	{
+		$("#login_response").html('<div class="alert alert-danger center-align">'+"No internet connection - please check your internet connection then try again"+'</div>').fadeIn( "slow");
+		$( "#loader-wrapper" ).addClass( "display_none" );
+	}
+	return false;
+});
+
+function get_accomodation_details(post_id,booking_refid)
+{
+	// $( "#loader-wrapper" ).removeClass( "display_none" );
+	var service = new Login_service();
+	service.initialize().done(function () {
+		console.log("Service initialized");
+	});
+	
+	
+	service.getEventsBookings(post_id,booking_refid).done(function (employees) {
+		var data = jQuery.parseJSON(employees);
+		
+		if(data.message == "success")
+		{
+			// $( "#news-of-icpak" ).addClass( "display_block" );
+			
+			// mainView.router.loadPage('booking.html');
+			$( "#event_bookings" ).html(data.result );
+			// $( "#loader-wrapper" ).addClass( "display_none" );
+		}
+		
+		else
+		{
+
+		}
+	});
+	
+}
+
+function get_these_items(booking_refid,accomodation_refid,post_id,hotel,fee)
+{
+	var myApp = new Framework7();
+ 
+	var $$ = Dom7;
+	window.localStorage.setItem('booking_refid',booking_refid);
+	window.localStorage.setItem('accomodation_refid',accomodation_refid);
+	window.localStorage.setItem('post_id',post_id);
+	window.localStorage.setItem('hotel',hotel);
+	window.localStorage.setItem('fee',fee);
+
+	myApp.confirm('Click Cancel to book event as a Non-Member or Ok to book event as a Member!','Booking Console',
+      function () {
+        // myApp.alert('You clicked Ok button','You chose');
+        var member_no = window.localStorage.getItem('member_no');
+        if(member_no == null)
+        {
+         	myApp.popup('.popup-login-admin');
+        }
+        else
+        {
+           var member_first_name = window.localStorage.getItem('member_first_name');
+
+		   myApp.alert('Hello '+member_first_name+' Press OK to proceed');
+
+		   book_member_to_event();
+
+        }
+      },
+      function () {
+         document.getElementById("bookingRefId").value = booking_refid;
+         document.getElementById("accomodation_refid").value = accomodation_refid;
+         document.getElementById("post_id").value = post_id;
+         document.getElementById("hotel").value = hotel;
+         document.getElementById("fee").value = fee;
+      }
+    );
+	
+	
+}
+function book_member_to_event()
+{
+	 var member_no = window.localStorage.getItem('member_no');
+
+	var service = new Login_service();
+	service.initialize().done(function () {
+		console.log("Service initialized");
+	});
+	var member_no = window.localStorage.getItem('member_no');
+	var booking_refid = window.localStorage.getItem('booking_refid');
+	var accomodation_refid = window.localStorage.getItem('accomodation_refid');
+	var post_id = window.localStorage.getItem('post_id');
+	var hotel = window.localStorage.getItem('hotel');
+	var fee = window.localStorage.getItem('fee');
+
+	service.book_member(post_id,booking_refid,member_no,hotel,accomodation_refid,fee).done(function (employees) {
+		var data = jQuery.parseJSON(employees);
+		
+		if(data.message == "success")
+		{
+			// $( "#news-of-icpak" ).addClass( "display_block" );
+			
+			mainView.router.loadPage('booking.html');
+			$( "#event_bookings" ).html(data.result );
+
+			myApp.alert('You have been booked');	
+		}
+		
+		else
+		{
+			myApp.alert('Sorry something went wrong Please try again to login');	
+		}
+	});
+}
+
+//Login member
+$(document).on("submit","form#login_member_admin",function(e)
+{
+	e.preventDefault();
+	$("#login_response").html('').fadeIn( "slow");
+	$("#loader-wrapper" ).removeClass( "display_none" );
+	
+	//get form values
+	var form_data = new FormData(this);
+
+	//check if there is a network connection
+	var connection = true;//is_connected();
+	
+	if(connection === true)
+	{
+		var service = new Login_service();
+		service.initialize().done(function () {
+			console.log("Service initialized");
+		});
+		
+		//get form values
+		// var member_no = $("input[name=member_no]").val();
+		// var password = $("input[name=password]").val();
+		// alert(form_data);
+		service.login_member(form_data).done(function (employees) {
+			var data = jQuery.parseJSON(employees);
+			
+			if(data.message == "success")
+			{
+
+
+				window.localStorage.setItem("member_no", data['result']['member_id']);
+				window.localStorage.setItem("member_login_status", data['result']['member_login_status']);
+				window.localStorage.setItem("member_email", data['result']['member_email']);
+				window.localStorage.setItem("member_first_name", data['result']['member_first_name']);
+				window.localStorage.setItem("member_no", data['result']['member_id']);
+				window.localStorage.setItem("memberRefId", data['result']['memberRefId']);
+				window.localStorage.setItem("applicationRefId", data['result']['applicationRefId']);
+				window.localStorage.setItem("member_code", data['result']['member_code']);
+
+				var member_first_name = window.localStorage.getItem('member_first_name');
+
+				 myApp.alert('Welcome back '+member_first_name+' Press OK to continue');
+				
+				$( ".main-nav ul li#pro_social" ).css( "display", 'inline-block' );
+				$( ".main-nav ul li#profile" ).css( "display", 'inline-block' );
+				$( ".main-nav ul li#cpd_live" ).css( "display", 'inline-block' );
+				$( ".user-nav ul li#my_account" ).css( "display", 'inline-block' );
+	
+
+				// $( "#first_page" ).css( "display_none", 'inline-block' );
+				// $( "#logged_in_page" ).css( "display", 'inline-block' );
+				
+				$( "#login_icon" ).html( '<a href="my-profile.html" class="close-popup"><img src="images/icons/white/user.png" alt="" title="" onClick="get_profile_details()"/><span>Profile</span></a>' );
+				$( "#profile_icon" ).html( '<li><a href="my-profile.html" class="close-popup"><img src="images/icons/white/user.png" alt="" title="" onClick="get_profile_details()"/><span>Profile</span></a></li>' );
+
+				$('.popup-login-admin').removeClass('modal-in');
+				$('.popup-login-admin').css('display', 'none');
+				$('.popup-overlay').removeClass('modal-overlay-visible');
+
+				// proceed to the next functionality
+				book_member_to_event();
+				
+				
+			}
+			else
+			{
+				myApp.alert('Sorry something went wrong Please try again to login');
+			}
+			
+			$( "#loader-wrapper" ).addClass( "display_none" );
+        });
+	}
+	
+	else
+	{
+		$("#login_response").html('<div class="alert alert-danger center-align">'+"No internet connection - please check your internet connection then try again"+'</div>').fadeIn( "slow");
+		$( "#loader-wrapper" ).addClass( "display_none" );
+	}
+	return false;
+});

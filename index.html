@@ -23,6 +23,7 @@
 <script src="form/jquery.easing.min.js" type="text/javascript"></script>
 
 <script src="form/script.js" type="text/javascript"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 
 </head>
 <body id="mobile_wrap">
@@ -179,6 +180,30 @@
       <div class="close_loginpopup_button"><a href="#" class="close-popup"><img src="images/icons/white/menu_close.png" alt="" title="" /></a></div>
     </div>
     </div>
+
+     <div class="popup popup-login-admin" id="ModalBehaviour">
+    <div id="loader-wrapper" class="display_none">
+          <div id="loader"></div>
+      </div>
+    <div class="content-block-login">
+      <h4>LOGIN</h4>
+      
+      <div class="form_logo"><img src="images/logo.png" alt="" title="" /></div>
+            <div class="loginform">
+            <div id="login_response"></div>
+            <form id="login_member_admin">
+            <input type="member_no" name="member_no" value="" class="form_input required" placeholder="Member No" />
+            <input type="password" name="password" value="" class="form_input required" placeholder="Password" />
+            <div class="forgot_pass"><a href="#" data-popup=".popup-forgot" class="open-popup">Forgot Password?</a></div>
+            <input type="submit" name="submit" class="form_submit" id="submit" value="SIGN IN" />
+            </form>
+            <div class="signup_bottom">
+            <p>Haven't activated account ?</p>
+            <a href="#" data-popup=".popup-signup" class="open-popup">Activate Account</a>            </div>
+            </div>
+      <div class="close_loginpopup_button"><a href="#" class="close-popup"><img src="images/icons/white/menu_close.png" alt="" title="" /></a></div>
+    </div>
+    </div>
     
     <!-- Register Popup -->
     <div class="popup popup-signup">
@@ -307,6 +332,29 @@
             </div>
       </div>
        <div class="close_loginpopup_button"><a href="#" class="close-popup"><img src="images/icons/white/menu_close.png" alt="" title="" /></a></div>
+    </div>
+     <!-- Login Popup -->
+    <div class="popup popup-edit-contact" id="ModalBehaviour">
+    <div id="loader-wrapper" class="display_none">
+          <div id="loader"></div>
+      </div>
+    <div class="content-block-login">
+      <h4>Edit Contact Details</h4>
+      
+      <div class="form_logo"><img src="images/logo.png" alt="" title="" /></div>
+            <div class="loginform">
+            <div id="login_response"></div>
+            <form id="edit_member">
+            <input type="text" name="email_address" id="email_address"  class="form_input required" placeholder="Email Address" required/>
+            <!-- <input type="text" name="mobileNumber" id="mobileNumber" class="form_input required" placeholder="Mobile Number" required/> -->
+            <input type="text" name="telephone1" id="telephone1"  class="form_input required" placeholder="Telephone Number" required/>
+            <input type="text" name="address1" id="address1"  class="form_input required" placeholder="Postal Address" required/>
+            <input type="hidden" name="applicationRefId" id="applicationRefId" />
+            <input type="submit" name="submit" class="form_submit" id="submit" value="Submit Changes" />
+            </form>
+            </div>
+      <div class="close_loginpopup_button"><a href="#" class="close-popup"><img src="images/icons/white/menu_close.png" alt="" title="" /></a></div>
+    </div>
     </div>
 
 
@@ -746,6 +794,50 @@ yepnope({
 });
 
 </script>
+ <script type="text/javascript">
+     $(document).ready(function () {
+     var navListItems = $('div.setup-panel div a'),
+       allWells = $('.setup-content'),
+       allNextBtn = $('.nextBtn');
+     
+     allWells.hide();
+     
+     navListItems.click(function (e) {
+      e.preventDefault();
+      var $target = $($(this).attr('href')),
+        $item = $(this);
+     
+      if (!$item.hasClass('disabled')) {
+       navListItems.removeClass('btn-primary').addClass('btn-default');
+       $item.addClass('btn-primary');
+       allWells.hide();
+       $target.show();
+       $target.find('input:eq(0)').focus();
+      }
+     });
+     
+     allNextBtn.click(function(){
+      var curStep = $(this).closest(".setup-content"),
+       curStepBtn = curStep.attr("id"),
+       nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
+       curInputs = curStep.find("input[type='text'],input[type='url'],textarea[textarea]"),
+       isValid = true;
+     
+      $(".form-group").removeClass("has-error");
+      for(var i=0; i<curInputs.length; i++){
+       if (!curInputs[i].validity.valid){
+        isValid = false;
+        $(curInputs[i]).closest(".form-group").addClass("has-error");
+       }
+      }
+     
+      if (isValid)
+       nextStepWizard.removeAttr('disabled').trigger('click');
+     });
+     
+     $('div.setup-panel div a.btn-primary').trigger('click');
+     });
+  </script>
 <script type="text/javascript" src="js/news.js"></script>
 <script type="text/javascript" src="js/events.js"></script>
 <script type="text/javascript" src="js/streaming.js"></script>
