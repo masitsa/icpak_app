@@ -1,0 +1,56 @@
+<div class="pages">
+  <div data-page="projects" class="page no-toolbar no-navbar">
+	    <div class="page-content">
+	    
+		     <div class="navbarpages">
+		       <div class="nav_left_logo"><a href="index.html"><img src="images/header.png" alt="" title="" /></a></div>
+		       <div class="nav_right_button">
+		       <a href="#" data-popup=".popup-menu" class="open-popup"><img src="images/icons/white/menu.png" alt="" title="" /></a>
+		       <a href="blog.html"><img src="images/icons/white/back.png" alt="" title="" onClick="get_event_items()" /></a>
+		       </div>
+		     </div>
+		     <div id="pages_maincontent">
+		      
+			      <h2 class="page_title">Event Booking</h2>
+
+
+			      <div class="page_content"> 
+			       <div class="contactform">
+		            <form class="cmxform" id="questionForm" method="post" action="">
+				       <h3 class="page_title">COMPANY DETAILS</h3>
+				       	<input type="hidden" id="bookingRefId" name="bookingRefId">
+				       	<input type="hidden" id="accomodationRefId" name="accomodationRefId" />
+			            <label>Company:</label>
+			            <input type="text" name="company" id="company" value="" class="form_input" required/>
+			            <label>Office Line:</label>
+			            <input type="text" name="office_line" id="office_line" value="" class="form_input " required/>
+
+			             <label>Postal Address:</label>
+			            <input type="text" name="posta_address" id="posta_address" value="" class="form_input" required/>
+			            <label>Postal Code:</label>
+			            <input type="text" name="postal_code" id="postal_code" value="" class="form_input required" required />
+			             <label>Country:</label>
+			            <input type="text" name="name" id="name" value="" class="form_input required" />
+			            <label>Town / City:</label>
+			            <input type="text" name="town" id="town" value="" class="form_input required " />
+			             <label>Contact Person:</label>
+			            <input type="text" name="contact_person" id="contact_person" value="" class="form_input " required/>
+			            <label>Contact Person Email:</label>
+			            <input type="email" name="contact_person_email" id="contact_person_email" value="" class="form_input required " required/>
+
+				       <h3 class="page_title align-center">DELEGATE INFORMATION</h3>
+				       <label>Full Name:</label>
+			            <input type="text" name="full_name" id="full_name" value="" class="form_input required" required/>
+			             <h3 class="page_title">ACCOMODATION INFORMATION</h3>
+				       	<p id="accomodation-detail"></p>
+			            	
+
+			              <input type="submit" data-popup=".popup-journal" class="form_submit open-popup " name="submit" class="form_submit" id="submit" value="BOOK EVENT">
+				      </div>
+				    </form>
+				    </div>
+			      </div>
+		      </div>
+		</div>
+	</div>
+</div>
