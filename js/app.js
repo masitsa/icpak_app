@@ -62,6 +62,11 @@ var Login_service = function() {
 		console.log({booking_refid: booking_refid, accomodation_refid: accomodation_refid, post_id: post_id, hotel: hotel, fee: fee, member_no: member_no});
 		return $.ajax({url: request, data: {booking_refid: booking_refid, accomodation_refid: accomodation_refid, post_id: post_id, hotel: hotel, fee: fee, member_no: member_no}, type: 'POST'});
     }
+    this.nonmemberbooking = function(form_data) {
+    	// alert("sadada");
+		var request = url + "events/book_non_member_to_event";
+        return $.ajax({url: request, data: form_data, type: 'POST', processData: false,contentType: false});
+    }
 
 }
 
@@ -694,11 +699,14 @@ function get_these_items(booking_refid,accomodation_refid,post_id,hotel,fee)
         }
       },
       function () {
-         document.getElementById("bookingRefId").value = booking_refid;
-         document.getElementById("accomodation_refid").value = accomodation_refid;
-         document.getElementById("post_id").value = post_id;
-         document.getElementById("hotel").value = hotel;
-         document.getElementById("fee").value = fee;
+
+         
+         mainView.router.loadPage('non_member_booking.html');
+         $("#bookingRefId").val(booking_refid);
+         $("#accomodationRefId").val(accomodation_refid);
+         $("#post_id").val(post_id);
+         $("#hotel").val(hotel);
+         $("#fee").val(fee);
       }
     );
 	
@@ -726,15 +734,17 @@ function book_member_to_event()
 		{
 			// $( "#news-of-icpak" ).addClass( "display_block" );
 			
-			mainView.router.loadPage('booking.html');
-			$( "#event_bookings" ).html(data.result );
+			mainView.router.loadPage('events.html');
+			get_event_items();
+			// do this here now 
+			var member_email = window.localStorage.getItem('member_email');
 
-			myApp.alert('You have been booked');	
+			myApp.alert('You have successfully booked the event. An email has been sent to '+ member_email +' with an invoice');	
 		}
 		
 		else
 		{
-			myApp.alert('Sorry something went wrong Please try again to login');	
+			myApp.alert('Sorry something went wrong Please try again to book for the event');	
 		}
 	});
 }
@@ -787,10 +797,7 @@ $(document).on("submit","form#login_member_admin",function(e)
 				$( ".main-nav ul li#profile" ).css( "display", 'inline-block' );
 				$( ".main-nav ul li#cpd_live" ).css( "display", 'inline-block' );
 				$( ".user-nav ul li#my_account" ).css( "display", 'inline-block' );
-	
-
-				// $( "#first_page" ).css( "display_none", 'inline-block' );
-				// $( "#logged_in_page" ).css( "display", 'inline-block' );
+				
 				
 				$( "#login_icon" ).html( '<a href="my-profile.html" class="close-popup"><img src="images/icons/white/user.png" alt="" title="" onClick="get_profile_details()"/><span>Profile</span></a>' );
 				$( "#profile_icon" ).html( '<li><a href="my-profile.html" class="close-popup"><img src="images/icons/white/user.png" alt="" title="" onClick="get_profile_details()"/><span>Profile</span></a></li>' );
@@ -818,5 +825,57 @@ $(document).on("submit","form#login_member_admin",function(e)
 		$("#login_response").html('<div class="alert alert-danger center-align">'+"No internet connection - please check your internet connection then try again"+'</div>').fadeIn( "slow");
 		$( "#loader-wrapper" ).addClass( "display_none" );
 	}
+	return false;
+});
+
+
+//cpd forum query member
+$(document).on("submit","form#nonmemberbooking",function(e)
+{
+	e.preventDefault();
+	
+	//get form values
+	var form_data = new FormData(this);
+		
+	
+
+	//check if there is a network connection
+	var connection = true;//is_connected();
+	
+	if(connection === true)
+	{
+		$( "#loader-wrapper" ).removeClass( "display_none" );
+		var service = new Login_service();
+		service.initialize().done(function () {
+			console.log("Service initialized");
+		});
+		
+		service.nonmemberbooking(form_data).done(function (employees) {
+			var data = jQuery.parseJSON(employees);
+			
+			if(data.message == "success")
+			{
+
+				//set local variables for future auto login
+				mainView.router.loadPage('events.html');
+			    get_event_items();
+				myApp.alert('An email has been sent to your email with a profoma invoice.');
+					
+			}
+			else
+			{
+				myApp.alert('Sorry,something went wrong please try again to book for the event');	
+				
+			}
+			
+			$( "#loader-wrapper" ).addClass( "display_none" );
+        });
+	}
+	
+	else
+	{
+		myApp.alert('No internet connection - please check your internet connection then try again');
+	}
+	// get_profile_details();
 	return false;
 });
