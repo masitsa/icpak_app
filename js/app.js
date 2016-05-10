@@ -614,7 +614,7 @@ $(document).on("submit","form#edit_member",function(e)
 			{
 				myApp.alert('You have successfully made a change to your profile','Successful');
 				get_profile_details();
-
+				
 				document.getElementById("email_address").value = '';
 				document.getElementById("telephone1").value = '';
 				document.getElementById("address1").value = '';
