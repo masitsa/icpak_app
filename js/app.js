@@ -185,10 +185,12 @@ function onDeviceReady()
             },
             complete: function() 
             {
-                setTimeout(message_cheker, 2000);
+                // setTimeout(message_cheker, 2000);
+                
             }
         });
     })();
+
 
 //on page load if the user has logged in previously,
 //log them in automatically
@@ -684,7 +686,7 @@ function get_these_items(booking_refid,accomodation_refid,post_id,hotel,fee)
     text: 'Choose the type of person you want to book the event!',
     buttons: [
       {
-        text: 'ICPAK Member',
+        text: 'Member',
         onClick: function() {
            var member_no = window.localStorage.getItem('member_no');
 	        if(member_no == null)
@@ -703,7 +705,7 @@ function get_these_items(booking_refid,accomodation_refid,post_id,hotel,fee)
         }
       },
       {
-        text: 'Non Member',
+        text: 'Non-Member',
         onClick: function() {
          mainView.router.loadPage('non_member_booking.html');
          $("#bookingRefId").val(booking_refid);
@@ -711,6 +713,12 @@ function get_these_items(booking_refid,accomodation_refid,post_id,hotel,fee)
          $("#post_id").val(post_id);
          $("#hotel").val(hotel);
          $("#fee").val(fee);
+        }
+      },
+      {
+        text: 'Cancel',
+        onClick: function() {
+        
         }
       },
     ]

@@ -53,29 +53,52 @@ $(document).ready(function(){
 
 function get_event_items()
 {
-	$( "#loader-wrapper" ).removeClass( "display_none" );
-	var service = new EmployeeService();
-	service.initialize().done(function () {
-		console.log("Service initialized");
-	});
-	
-	//get client's credentials
-	
-	service.findByName().done(function (employees) {
-		var data = jQuery.parseJSON(employees);
-		
-		if(data.message == "success")
-		{
-			// $( "#news-of-icpak" ).addClass( "display_block" );
-			$( "#events_list" ).html( data.result );
-			$( "#loader-wrapper" ).addClass( "display_none" );
-		}
-		
-		else
-		{
 
-		}
-	});
+	var isOffline = 'onLine' in navigator && !navigator.onLine;
+
+	if ( isOffline ) {
+	//local db
+		
+	    myApp.addNotification({
+	        message: 'No internet connection - please check your internet connection',
+	        button: {
+	            text: 'Close',
+	            color: 'yellow'
+	        }
+	    });
+		var events_list = window.localStorage.getItem("events_list");
+		$( "#events_list" ).html(events_list);
+	}
+	else {
+	// internet data
+	 	$( "#loader-wrapper" ).removeClass( "display_none" );
+		var service = new EmployeeService();
+		service.initialize().done(function () {
+			console.log("Service initialized");
+		});
+
+		//get client's credentials
+
+		service.findByName().done(function (employees) {
+			var data = jQuery.parseJSON(employees);
+			
+			if(data.message == "success")
+			{
+				// $( "#news-of-icpak" ).addClass( "display_block" );
+				// window.localStorage.setItem("events_list",'');
+
+				$( "#events_list" ).html( data.result );
+				window.localStorage.setItem("events_list",data.result);
+				$( "#loader-wrapper" ).addClass( "display_none" );
+			}
+			
+			else
+			{
+
+			}
+		});
+	}
+	
 }
 
 //get a logged in user's details
