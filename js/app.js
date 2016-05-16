@@ -403,7 +403,7 @@ $(document).on("submit","form#login_member",function(e)
 
 
 				$( "#user_logged_in" ).html( '<h4>Welcome back '+member_first_name+'</h4>' );
-			
+			    myApp.alert('Welcome back '+member_first_name+' Press OK to proceed');
 				
 				$( ".main-nav ul li#pro_social" ).css( "display", 'inline-block' );
 				$( ".main-nav ul li#profile" ).css( "display", 'inline-block' );
@@ -679,37 +679,43 @@ function get_these_items(booking_refid,accomodation_refid,post_id,hotel,fee)
 	window.localStorage.setItem('post_id',post_id);
 	window.localStorage.setItem('hotel',hotel);
 	window.localStorage.setItem('fee',fee);
+	myApp.modal({
+    title:  'Booking Console',
+    text: 'Choose the type of person you want to book the event!',
+    buttons: [
+      {
+        text: 'ICPAK Member',
+        onClick: function() {
+           var member_no = window.localStorage.getItem('member_no');
+	        if(member_no == null)
+	        {
+	         	myApp.popup('.popup-login-admin');
+	        }
+	        else
+	        {
+	           var member_first_name = window.localStorage.getItem('member_first_name');
 
-	myApp.confirm('Click Cancel to book event as a Non-Member or Ok to book event as a Member!','Booking Console',
-      function () {
-        // myApp.alert('You clicked Ok button','You chose');
-        var member_no = window.localStorage.getItem('member_no');
-        if(member_no == null)
-        {
-         	myApp.popup('.popup-login-admin');
-        }
-        else
-        {
-           var member_first_name = window.localStorage.getItem('member_first_name');
+			   myApp.alert('Hello '+member_first_name+' Press OK to proceed');
 
-		   myApp.alert('Hello '+member_first_name+' Press OK to proceed');
+			   book_member_to_event();
 
-		   book_member_to_event();
-
+	        }
         }
       },
-      function () {
-
-         
+      {
+        text: 'Non Member',
+        onClick: function() {
          mainView.router.loadPage('non_member_booking.html');
          $("#bookingRefId").val(booking_refid);
          $("#accomodationRefId").val(accomodation_refid);
          $("#post_id").val(post_id);
          $("#hotel").val(hotel);
          $("#fee").val(fee);
-      }
-    );
-	
+        }
+      },
+    ]
+  });
+		
 	
 }
 function book_member_to_event()
