@@ -342,15 +342,18 @@ $(document).on("submit","form#register_member",function(e)
 				window.localStorage.setItem("member_company", $("input[name=company]").val());
 				window.localStorage.setItem("member_no", $("input[name=member_no]").val());
 			}
-			alert(data.result);
 			
 			$( "#loader-wrapper" ).addClass( "display_none" );
-        });
+        }).fail(function(jqXHR, textStatus, errorThrown)  {
+			myApp.alert('Something went wrong. Please try again');
+			console.log(jqXHR+' '+textStatus+' '+errorThrown);
+			$( "#loader-wrapper" ).addClass( "display_none" );
+		});
 	}
 	
 	else
 	{
-		$("#register_response").html('<div class="alert alert-danger center-align">'+"No internet connection - please check your internet connection then try again"+'</div>').fadeIn( "slow");
+		$("#register_response").html('<div class="alert alert-danger center-align">'+"Please ensure you have entered your member number and password before you continue"+'</div>').fadeIn( "slow");
 		$( "#loader-wrapper" ).addClass( "display_none" );
 	}
 	return false;
@@ -373,25 +376,24 @@ $(document).on("submit","form#login_member",function(e)
 
 	//check if there is a network connection
 	var connection = true;//is_connected();
+	//get form values
+	 var member_no = $("input[name=member_no]").val();
 	
-	if(connection === true)
+	if(member_no != '')
 	{
 		var service = new Login_service();
 		service.initialize().done(function () {
 			console.log("Service initialized");
 		});
 		
-		//get form values
-		// var member_no = $("input[name=member_no]").val();
 		// var password = $("input[name=password]").val();
 		// alert(form_data);
-		service.login_member(form_data).done(function (employees) {
+		service.login_member(form_data).done(function (employees)
+		{
 			var data = jQuery.parseJSON(employees);
 			
 			if(data.message == "success")
 			{
-
-
 				window.localStorage.setItem("member_no", data['result']['member_id']);
 				window.localStorage.setItem("member_login_status", data['result']['member_login_status']);
 				window.localStorage.setItem("member_email", data['result']['member_email']);
@@ -402,7 +404,6 @@ $(document).on("submit","form#login_member",function(e)
 				window.localStorage.setItem("member_code", data['result']['member_code']);
 
 				var member_first_name = window.localStorage.getItem('member_first_name');
-
 
 				$( "#user_logged_in" ).html( '<h4>Welcome back '+member_first_name+'</h4>' );
 			    myApp.alert('Welcome back '+member_first_name+' Press OK to proceed');
@@ -422,21 +423,23 @@ $(document).on("submit","form#login_member",function(e)
 				$('.popup-login').removeClass('modal-in');
 				$('.popup-login').css('display', 'none');
 				$('.popup-overlay').removeClass('modal-overlay-visible');
-				
-				
+				$( "#loader-wrapper" ).addClass( "display_none" );
 			}
 			else
 			{
 				$("#login_response").html('<div class="alert alert-danger center-align">'+data.result+'</div>').fadeIn( "slow");
+				$( "#loader-wrapper" ).addClass( "display_none" );
 			}
-			
+        }).fail(function(jqXHR, textStatus, errorThrown)  {
+			myApp.alert('Something went wrong. Please try again');
+			console.log(jqXHR+' '+textStatus+' '+errorThrown);
 			$( "#loader-wrapper" ).addClass( "display_none" );
-        });
+		});
 	}
 	
 	else
 	{
-		$("#login_response").html('<div class="alert alert-danger center-align">'+"No internet connection - please check your internet connection then try again"+'</div>').fadeIn( "slow");
+		$("#login_response").html('<div class="alert alert-danger center-align">'+"Please ensure you have entered your member number and password before you continue"+'</div>').fadeIn( "slow");
 		$( "#loader-wrapper" ).addClass( "display_none" );
 	}
 	return false;
